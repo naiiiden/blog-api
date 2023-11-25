@@ -3,6 +3,7 @@ const app = express();
 const routes = require('./routes/index');
 
 app.use('/user', routes.user);
+app.use('/post', routes.post);
 
 app.get('/', (req, res) => {
     res.send('hi');
