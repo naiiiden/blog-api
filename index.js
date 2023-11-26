@@ -66,8 +66,11 @@ app.post('/posts', async (req, res) => {
     res.json(savedPost);
 });
   
-app.get('/posts/:postId', (req, res) => {
-    // return res.send(posts[req.params.postId]);
+app.get('/posts/:postId', async (req, res) => {
+    const post = await Post.findById(req.params.postId);
+    return post 
+        ? res.json(post)
+        : res.status(404).end();
 });
 
 app.listen(process.env.PORT, () => {
