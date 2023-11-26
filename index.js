@@ -85,6 +85,11 @@ app.put('/posts/:postId', async (req, res) => {
         .catch(error => next(error))
 });
 
+app.delete('/posts/:postId', async (req, res) => {
+    await Post.findByIdAndDelete(req.params.postId);
+    res.status(204).end();
+});
+
 app.listen(process.env.PORT, () => {
     console.log(`App listening on port ${process.env.PORT}`);
 });
