@@ -46,7 +46,16 @@ app.delete('/users/:userId', async (req, res) => {
 
 app.get('/posts', (req, res) => {
     // return res.send(Object.values(posts));
-  });
+});
+
+app.post('/posts', async (req, res) => {
+    const { title, text, author, published } = req.body;
+
+    const post = new Post({ title, text, author, published });
+
+    const savedPost = await post.save();
+    res.json(savedPost);
+});
   
 app.get('/posts/:postId', (req, res) => {
     // return res.send(posts[req.params.postId]);
