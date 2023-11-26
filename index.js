@@ -1,5 +1,6 @@
 const express = require('express');
 const app = express();
+require('dotenv').config()
 
 app.get('/users', (req, res) => {
     return res.send('GET HTTP method on user resource');
@@ -17,6 +18,6 @@ app.delete('/users/:userId', (req, res) => {
     return res.send(`DELETE HTTP method on user/${req.params.userId} resource`);
 });
 
-app.listen(3000, () => {
+app.listen(process.env.PORT, () => {
     console.log(`App listening on port 3000`);
 });
