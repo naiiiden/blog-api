@@ -36,7 +36,15 @@ app.get('/users/:userId', async (req, res) => {
 });
   
 app.put('/users/:userId', (req, res) => {
-    return res.send(`PUT HTTP method on user/${req.params.userId} resource`);
+    const { username, password } = req.body;
+
+    const user = { username, password };
+
+    User.findByIdAndUpdate(req.params.userId, user, { new: true })
+        .then(updatedUser => {
+            res.json(updatedUser)
+        })
+        .catch(error => next(error))
 });
   
 app.delete('/users/:userId', async (req, res) => {
