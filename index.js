@@ -14,8 +14,9 @@ db.on("error", console.error.bind(console, "mongo connection error"));
 const User = require('./models/user');
 const Post = require('./models/post');
 
-app.get('/users', (req, res) => {
-    // return res.send(Object.values(users));
+app.get('/users', async (req, res) => {
+    const users = await User.find({});
+    res.json(users);
 });
 
 app.post('/users', async (req, res) => {
