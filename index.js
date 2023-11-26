@@ -28,8 +28,11 @@ app.post('/users', async (req, res) => {
     res.json(savedUser);
 });
   
-app.get('/users/:userId', (req, res) => {
-    // return res.send(users[req.params.userId]);
+app.get('/users/:userId', async (req, res) => {
+    const user = await User.findById(req.params.userId);
+    return user 
+        ? res.json(user)
+        : res.status(404).end()
 });
 
 app.post('/users/:userId', (req, res) => {
