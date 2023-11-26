@@ -32,19 +32,16 @@ app.get('/users/:userId', async (req, res) => {
     const user = await User.findById(req.params.userId);
     return user 
         ? res.json(user)
-        : res.status(404).end()
-});
-
-app.post('/users/:userId', (req, res) => {
-    return res.send('POST HTTP method on user resource');
+        : res.status(404).end();
 });
   
 app.put('/users/:userId', (req, res) => {
     return res.send(`PUT HTTP method on user/${req.params.userId} resource`);
 });
   
-app.delete('/users/:userId', (req, res) => {
-    return res.send(`DELETE HTTP method on user/${req.params.userId} resource`);
+app.delete('/users/:userId', async (req, res) => {
+    await User.findByIdAndDelete(req.params.userId);
+    res.status(204).end();
 });
 
 app.get('/posts', (req, res) => {
