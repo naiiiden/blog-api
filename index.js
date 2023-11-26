@@ -73,6 +73,18 @@ app.get('/posts/:postId', async (req, res) => {
         : res.status(404).end();
 });
 
+app.put('/posts/:postId', async (req, res) => {
+    const { title, text, author, published } = req.body;
+
+    const post = { title, text, author, published };
+
+    Post.findByIdAndUpdate(req.params.postId, post, { new: true })
+        .then(updatedPost => {
+            res.json(updatedPost)
+        })
+        .catch(error => next(error))
+});
+
 app.listen(process.env.PORT, () => {
     console.log(`App listening on port ${process.env.PORT}`);
 });
