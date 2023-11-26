@@ -44,8 +44,9 @@ app.delete('/users/:userId', async (req, res) => {
     res.status(204).end();
 });
 
-app.get('/posts', (req, res) => {
-    // return res.send(Object.values(posts));
+app.get('/posts', async (req, res) => {
+    const posts = await Post.find({});
+    res.json(posts);
 });
 
 app.post('/posts', async (req, res) => {
