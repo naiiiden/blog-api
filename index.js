@@ -1,39 +1,34 @@
 const express = require('express');
 const app = express();
-require('dotenv').config()
+const mongoose = require('mongoose');
+require('dotenv').config();
 
-let users = {
-    1: {
-      id: '1',
-      username: 'Robin Wieruch',
-    },
-    2: {
-      id: '2',
-      username: 'Dave Davids',
-    },
-  };
-  
-let posts = {
-    1: {
-      id: '1',
-      title: 'First post',
-      text: 'Hello World',
-      userId: '1',
-    },
-    2: {
-      id: '2',
-      title: 'Second post',
-      text: 'By World',
-      userId: '2',
-    },
-};
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
+
+const mongoDb = `mongodb+srv://dbUser:${process.env.DB_PASSWORD}@cluster0.6gnwje6.mongodb.net/${process.env.DB_NAME}?retryWrites=true&w=majority`
+mongoose.connect(mongoDb);
+const db = mongoose.connection;
+db.on("error", console.error.bind(console, "mongo connection error"));
+
+const User = require('./models/user');
+const Post = require('./models/post');
 
 app.get('/users', (req, res) => {
-    return res.send(Object.values(users));
+    // return res.send(Object.values(users));
+});
+
+app.post('/users', async (req, res) => {
+    const { username, password } = req.body;
+
+    const user = new User({ username, password });
+
+    const savedUser = await user.save();
+    res.json(savedUser);
 });
   
 app.get('/users/:userId', (req, res) => {
-    return res.send(users[req.params.userId]);
+    // return res.send(users[req.params.userId]);
 });
 
 app.post('/users/:userId', (req, res) => {
@@ -49,11 +44,11 @@ app.delete('/users/:userId', (req, res) => {
 });
 
 app.get('/posts', (req, res) => {
-    return res.send(Object.values(posts));
+    // return res.send(Object.values(posts));
   });
   
 app.get('/posts/:postId', (req, res) => {
-    return res.send(posts[req.params.postId]);
+    // return res.send(posts[req.params.postId]);
 });
 
 app.listen(process.env.PORT, () => {
