@@ -11,47 +11,10 @@ mongoose.connect(mongoDb);
 const db = mongoose.connection;
 db.on("error", console.error.bind(console, "mongo connection error"));
 
-const User = require('./models/user');
+const userRouter = require('./controllers/user');
 const blogRouter = require('./controllers/blog');
 
-app.get('/users', async (req, res) => {
-    const users = await User.find({});
-    res.json(users);
-});
-
-app.post('/users', async (req, res) => {
-    const { username, password } = req.body;
-
-    const user = new User({ username, password });
-
-    const savedUser = await user.save();
-    res.json(savedUser);
-});
-  
-app.get('/users/:userId', async (req, res) => {
-    const user = await User.findById(req.params.userId);
-    return user 
-        ? res.json(user)
-        : res.status(404).end();
-});
-  
-app.put('/users/:userId', (req, res) => {
-    const { username, password } = req.body;
-
-    const user = { username, password };
-
-    User.findByIdAndUpdate(req.params.userId, user, { new: true })
-        .then(updatedUser => {
-            res.json(updatedUser)
-        })
-        .catch(error => next(error))
-});
-  
-app.delete('/users/:userId', async (req, res) => {
-    await User.findByIdAndDelete(req.params.userId);
-    res.status(204).end();
-});
-
+app.use('/users', userRouter);
 app.use('/blogs', blogRouter);
 
 app.listen(process.env.PORT, () => {
