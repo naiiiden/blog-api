@@ -58,9 +58,9 @@ app.get('/blogs', async (req, res) => {
 });
 
 app.post('/blogs', async (req, res) => {
-    const { title, text, author, published } = req.body;
+    const { title, body, author, published } = req.body;
 
-    const blog = new Blog({ title, text, author, published });
+    const blog = new Blog({ title, body, author, published });
 
     const savedBlog = await blog.save();
     res.json(savedBlog);
@@ -74,9 +74,9 @@ app.get('/blogs/:blogId', async (req, res) => {
 });
 
 app.put('/blogs/:blogId', async (req, res) => {
-    const { title, text, author, published } = req.body;
+    const { title, body, author, published } = req.body;
 
-    const blog = { title, text, author, published };
+    const blog = { title, body, author, published };
 
     Blog.findByIdAndUpdate(req.params.postId, blog, { new: true })
         .then(updatedBlog => {

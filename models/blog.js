@@ -6,7 +6,7 @@ const Blog = mongoose.model(
     new Schema(
         {   
             title: { type: String, required: true },
-            text: { type: String, required: true },
+            body: { type: String, required: true },
             author: { type: String, required: true },
             published: { type: Boolean, required: true },
         },
