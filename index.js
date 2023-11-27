@@ -73,7 +73,7 @@ app.get('/blogs/:blogId', async (req, res) => {
         : res.status(404).end();
 });
 
-app.put('/blogs/:blogId', async (req, res) => {
+app.put('/blogs/:blogId', (req, res) => {
     const { title, body, author, published, comments } = req.body;
 
     const blog = { title, body, author, published, comments };
