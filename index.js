@@ -12,7 +12,7 @@ const db = mongoose.connection;
 db.on("error", console.error.bind(console, "mongo connection error"));
 
 const User = require('./models/user');
-const Post = require('./models/post');
+const Blog = require('./models/blog');
 
 app.get('/users', async (req, res) => {
     const users = await User.find({});
@@ -52,41 +52,41 @@ app.delete('/users/:userId', async (req, res) => {
     res.status(204).end();
 });
 
-app.get('/posts', async (req, res) => {
-    const posts = await Post.find({});
-    res.json(posts);
+app.get('/blogs', async (req, res) => {
+    const blogs = await Blog.find({});
+    res.json(blogs);
 });
 
-app.post('/posts', async (req, res) => {
+app.post('/blogs', async (req, res) => {
     const { title, text, author, published } = req.body;
 
-    const post = new Post({ title, text, author, published });
+    const blog = new Blog({ title, text, author, published });
 
-    const savedPost = await post.save();
-    res.json(savedPost);
+    const savedBlog = await blog.save();
+    res.json(savedBlog);
 });
   
-app.get('/posts/:postId', async (req, res) => {
-    const post = await Post.findById(req.params.postId);
-    return post 
-        ? res.json(post)
+app.get('/blogs/:blogId', async (req, res) => {
+    const blog = await Blog.findById(req.params.blogId);
+    return blog 
+        ? res.json(blog)
         : res.status(404).end();
 });
 
-app.put('/posts/:postId', async (req, res) => {
+app.put('/blogs/:blogId', async (req, res) => {
     const { title, text, author, published } = req.body;
 
-    const post = { title, text, author, published };
+    const blog = { title, text, author, published };
 
-    Post.findByIdAndUpdate(req.params.postId, post, { new: true })
-        .then(updatedPost => {
-            res.json(updatedPost)
+    Blog.findByIdAndUpdate(req.params.postId, blog, { new: true })
+        .then(updatedBlog => {
+            res.json(updatedBlog)
         })
         .catch(error => next(error))
 });
 
-app.delete('/posts/:postId', async (req, res) => {
-    await Post.findByIdAndDelete(req.params.postId);
+app.delete('/blogs/:blogId', async (req, res) => {
+    await Blog.findByIdAndDelete(req.params.blogId);
     res.status(204).end();
 });
 
