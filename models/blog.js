@@ -9,6 +9,7 @@ const Blog = mongoose.model(
             body: { type: String, required: true },
             author: { type: String, required: true },
             published: { type: Boolean, required: true },
+            comments: [{ body: String, date: Date }],
         },
         { timestamps: true }
     )

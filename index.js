@@ -74,11 +74,11 @@ app.get('/blogs/:blogId', async (req, res) => {
 });
 
 app.put('/blogs/:blogId', async (req, res) => {
-    const { title, body, author, published } = req.body;
+    const { title, body, author, published, comments } = req.body;
 
-    const blog = { title, body, author, published };
+    const blog = { title, body, author, published, comments };
 
-    Blog.findByIdAndUpdate(req.params.postId, blog, { new: true })
+    Blog.findByIdAndUpdate(req.params.blogId, blog, { new: true })
         .then(updatedBlog => {
             res.json(updatedBlog)
         })
