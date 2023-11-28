@@ -1,8 +1,8 @@
 const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
-const Message = mongoose.model(
-    "Message",
+const Comment = mongoose.model(
+    "Comment",
     new Schema(
         {
             text: { type: String, required: true },
@@ -12,4 +12,4 @@ const Message = mongoose.model(
     )
 );
 
-module.exports = Message;
+module.exports = Comment;
