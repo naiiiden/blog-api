@@ -31,7 +31,7 @@ blogRouter.put('/:blogId', (req, res) => {
     // const published = req.body;
     // const comments = req.body;
 
-    const blog = { title, body, author, published, comments };
+    const blog = { title, body, author, published };
     // same as
     // const blog = {
     //     title: title,
@@ -40,6 +40,10 @@ blogRouter.put('/:blogId', (req, res) => {
     //     published: published,
     //     comments: comments
     // };
+
+    if (comments && comments.length > 0) {
+        blog.$push = { comments: { $each: comments.map(comment => ({ body: comment.body, date: new Date() })) } };
+    }
 
     Blog.findByIdAndUpdate(req.params.blogId, blog, { new: true })
         .then(updatedBlog => {
