@@ -22,7 +22,7 @@ blogRouter.get('/:blogId', async (req, res) => {
         : res.status(404).end();
 });
 
-blogRouter.put('/:blogId', (req, res) => {
+blogRouter.put('/:blogId', (req, res, next) => {
     const { title, body, author, published, comments } = req.body;
     // same as
     // const title = req.body;
