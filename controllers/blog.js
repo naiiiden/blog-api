@@ -43,7 +43,7 @@ blogRouter.put('/:blogId', (req, res) => {
 
     if (comments && comments.length > 0) {
         console.log(1, comments);
-        blog.$push = { comments: { body: comments[0].body, date: new Date() } };
+        blog.$push = { comments: { author: comments[0].author, body: comments[0].body, date: new Date() } };
     }
 
     Blog.findByIdAndUpdate(req.params.blogId, blog, { new: true })

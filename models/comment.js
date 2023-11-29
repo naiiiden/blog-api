@@ -5,8 +5,9 @@ const Comment = mongoose.model(
     "Comment",
     new Schema(
         {
-            text: { type: String, required: true },
             author: { type: String, required: true, default: "Anonymous Author" },
+            body: { type: String, required: true },
+            date: { type: Date, default: Date.now }
         },
         { timestamps: true }
     )
