@@ -23,7 +23,7 @@ blogRouter.get('/:blogId', async (req, res) => {
 });
 
 blogRouter.put('/:blogId', (req, res, next) => {
-    const { title, body, author, published, comments } = req.body;
+    const { title, body, author, published } = req.body;
     // same as
     // const title = req.body;
     // const body = req.body;
@@ -40,11 +40,6 @@ blogRouter.put('/:blogId', (req, res, next) => {
     //     published: published,
     //     comments: comments
     // };
-
-    if (comments && comments.length > 0) {
-        console.log(1, comments);
-        blog.$push = { comments: { author: comments[0].author, body: comments[0].body, date: new Date() } };
-    }
 
     Blog.findByIdAndUpdate(req.params.blogId, blog, { new: true })
         .then(updatedBlog => {
