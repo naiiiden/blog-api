@@ -7,9 +7,9 @@ blogRouter.get('/', async (req, res) => {
 });
 
 blogRouter.post('/', async (req, res) => {
-    const { title, body, author, published } = req.body;
+    const { title, body, user, published } = req.body;
 
-    const blog = new Blog({ title, body, author, published });
+    const blog = new Blog({ title, body, user, published });
 
     const savedBlog = await blog.save();
     res.json(savedBlog);
@@ -23,20 +23,20 @@ blogRouter.get('/:blogId', async (req, res) => {
 });
 
 blogRouter.put('/:blogId', (req, res, next) => {
-    const { title, body, author, published } = req.body;
+    const { title, body, user, published } = req.body;
     // same as
     // const title = req.body;
     // const body = req.body;
-    // const author = req.body;
+    // const user = req.body;
     // const published = req.body;
     // const comments = req.body;
 
-    const blog = { title, body, author, published };
+    const blog = { title, body, user, published };
     // same as
     // const blog = {
     //     title: title,
     //     body: body,
-    //     author: author,
+    //     user: user,
     //     published: published,
     //     comments: comments
     // };
