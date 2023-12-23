@@ -8,10 +8,6 @@ const Blog = mongoose.model(
             title: { type: String, required: true },
             body: { type: String, required: true },
             published: { type: Boolean, required: true },
-            user: {
-                type: mongoose.Schema.Types.ObjectId,
-                ref: 'User'
-            }
         },
         { timestamps: true }
     )
