@@ -13,9 +13,11 @@ db.on("error", console.error.bind(console, "mongo connection error"));
 
 const userRouter = require("./controllers/user");
 const blogRouter = require("./controllers/blog");
+const loginRouter = require("./controllers/login");
 
 app.use("/users", userRouter);
 app.use("/blogs", blogRouter);
+app.use("/login", loginRouter);
 
 app.listen(process.env.PORT, () => {
   console.log(`App listening on port ${config.PORT}`);
