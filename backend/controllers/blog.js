@@ -23,9 +23,6 @@ blogRouter.post("/", async (req, res, next) => {
     const { title, body, published } = req.body;
   
     const decodedToken = jwt.verify(getTokenFrom(req), config.SECRET)
-    if (!decodedToken.id) {
-      return res.status(401).json({ error: 'token invalid' })
-    }
   
     const user = await User.findById(decodedToken.id);
   
@@ -37,8 +34,12 @@ blogRouter.post("/", async (req, res, next) => {
     await user.save();
   
     res.json(savedBlog);
-  } catch (err) {
-    next(err);
+  } catch (error) {
+    if (error.name === 'JsonWebTokenError') {
+      return res.status(401).json({ error: 'token invalid' });
+    }
+
+    next(error);
   }
 });
 
