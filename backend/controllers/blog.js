@@ -18,24 +18,28 @@ blogRouter.get("/", async (req, res) => {
   res.json(blogs);
 });
 
-blogRouter.post("/", async (req, res) => {
-  const { title, body, published } = req.body;
-
-  const decodedToken = jwt.verify(getTokenFrom(req), config.SECRET)
-  if (!decodedToken.id) {
-    return res.status(401).json({ error: 'token invalid' })
+blogRouter.post("/", async (req, res, next) => {
+  try {
+    const { title, body, published } = req.body;
+  
+    const decodedToken = jwt.verify(getTokenFrom(req), config.SECRET)
+    if (!decodedToken.id) {
+      return res.status(401).json({ error: 'token invalid' })
+    }
+  
+    const user = await User.findById(decodedToken.id);
+  
+    const blog = new Blog({ title, body, user: user._id, published });
+  
+    const savedBlog = await blog.save();
+  
+    user.blogs = user.blogs.concat(savedBlog._id);
+    await user.save();
+  
+    res.json(savedBlog);
+  } catch (err) {
+    next(err);
   }
-
-  const user = await User.findById(decodedToken.id);
-
-  const blog = new Blog({ title, body, user: user._id, published });
-
-  const savedBlog = await blog.save();
-
-  user.blogs = user.blogs.concat(savedBlog._id);
-  await user.save();
-
-  res.json(savedBlog);
 });
 
 blogRouter.get("/:blogId", async (req, res) => {
