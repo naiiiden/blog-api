@@ -82,7 +82,7 @@ blogRouter.post("/:blogId/comments", async (req, res, next) => {
 
   const blog = await Blog.findById(req.params.blogId);
 
-  const comment = new Comment({ author, body });
+  const comment = new Comment({ author, body, blog: blog });
 
   const savedComment = await comment.save();
 
