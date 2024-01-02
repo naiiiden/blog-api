@@ -21,6 +21,8 @@ app.use("/users", userRouter);
 app.use("/blogs", blogRouter);
 app.use("/login", loginRouter);
 
+app.use(middleware.unknownEndpoint);
+
 app.listen(process.env.PORT, () => {
   console.log(`App listening on port ${config.PORT}`);
 });
