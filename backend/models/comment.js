@@ -8,6 +8,10 @@ const Comment = mongoose.model(
       author: { type: String, required: true, default: "Anonymous Author" },
       body: { type: String, required: true },
       date: { type: Date, default: Date.now },
+      blog: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "Blog",
+      },
     },
     { timestamps: true }
   )
