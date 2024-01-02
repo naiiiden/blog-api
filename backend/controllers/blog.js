@@ -1,6 +1,7 @@
 const blogRouter = require("express").Router();
 const Blog = require("../models/blog");
 const User = require("../models/user");
+const Comment = require("../models/comment");
 
 const config = require("../utils/config");
 const jwt = require("jsonwebtoken");
@@ -74,6 +75,16 @@ blogRouter.put("/:blogId", (req, res, next) => {
       res.json(updatedBlog);
     })
     .catch((error) => next(error));
+});
+
+blogRouter.post("/:blogId/comments", async (req, res, next) => {
+  const { author, body } = req.body;
+
+  const comment = new Comment({ author, body });
+
+  const savedComment = await comment.save();
+
+  res.json(savedComment);
 });
 
 blogRouter.delete("/:blogId", async (req, res) => {
