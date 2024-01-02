@@ -17,11 +17,13 @@ const blogRouter = require("./controllers/blog");
 const loginRouter = require("./controllers/login");
 
 app.use(middleware.requestLogger);
+
 app.use("/users", userRouter);
 app.use("/blogs", blogRouter);
 app.use("/login", loginRouter);
 
 app.use(middleware.unknownEndpoint);
+app.use(middleware.errorHandler);
 
 app.listen(process.env.PORT, () => {
   console.log(`App listening on port ${config.PORT}`);

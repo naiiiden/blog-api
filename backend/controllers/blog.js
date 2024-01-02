@@ -36,18 +36,15 @@ blogRouter.post("/", async (req, res, next) => {
 
     res.json(savedBlog);
   } catch (error) {
-    if (error.name === "JsonWebTokenError") {
-      return res.status(401).json({ error: "token invalid" });
-    } else if (error.name === "TokenExpiredError") {
-      return res.status(401).json({ error: "token expired" });
-    }
-
     next(error);
   }
 });
 
 blogRouter.get("/:blogId", async (req, res) => {
-  const blog = await Blog.findById(req.params.blogId).populate('comments', { author: 1, body: 1 });
+  const blog = await Blog.findById(req.params.blogId).populate("comments", {
+    author: 1,
+    body: 1,
+  });
   return blog ? res.json(blog) : res.status(404).end();
 });
 
