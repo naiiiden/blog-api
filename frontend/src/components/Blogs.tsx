@@ -2,17 +2,17 @@ import axios from "axios";
 import { useState, useEffect } from "react";
 
 interface Blog {
-    body: string,
-    comments: unknown[];
-    createdAt: string;
-    published: boolean;
-    title: string,
-    updatedAt: string;
-    user: {
-        _id: string,
-        username: string,
-    };
+  body: string;
+  comments: unknown[];
+  createdAt: string;
+  published: boolean;
+  title: string;
+  updatedAt: string;
+  user: {
     _id: string;
+    username: string;
+  };
+  _id: string;
 }
 
 const Blogs = () => {
@@ -42,6 +42,7 @@ const Blogs = () => {
           return (
             blog.published === true && (
               <li
+                key={blog._id}
                 style={{
                   border: "1px solid red",
                   padding: "1rem",
