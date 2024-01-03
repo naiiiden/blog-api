@@ -49,8 +49,15 @@ const Blogs = () => {
                 }}
               >
                 <a href={blog.title}>{blog.title}</a>
-                <p>{blog.createdAt}</p>
                 <p>{blog.comments.length} comments</p>
+                <p>
+                  created:{" "}
+                  {new Date(blog.createdAt).toLocaleDateString(undefined, {
+                    month: "short",
+                    day: "numeric",
+                    year: "numeric",
+                  })}
+                </p>
               </li>
             )
           );
