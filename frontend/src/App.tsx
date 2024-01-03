@@ -1,7 +1,7 @@
-const App = () => {
-  return (
-    <h1>hi</h1>
-  )
-}
+import Header from "./components/Header";
 
-export default App
+const App = () => {
+  return <Header />;
+};
+
+export default App;
