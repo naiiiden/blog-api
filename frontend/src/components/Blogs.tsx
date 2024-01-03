@@ -3,7 +3,13 @@ import { useState, useEffect } from "react";
 
 interface Blog {
   body: string;
-  comments: unknown[];
+  comments: [
+    {
+      author: string;
+      body: string;
+      _id: string;
+    }
+  ];
   createdAt: string;
   published: boolean;
   title: string;
