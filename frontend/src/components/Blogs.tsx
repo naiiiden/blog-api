@@ -1,8 +1,22 @@
 import axios from "axios";
 import { useState, useEffect } from "react";
 
+interface Blog {
+    body: string,
+    comments: unknown[];
+    createdAt: string;
+    published: boolean;
+    title: string,
+    updatedAt: string;
+    user: {
+        _id: string,
+        username: string,
+    };
+    _id: string;
+}
+
 const Blogs = () => {
-  const [blogs, setBlogs] = useState([]);
+  const [blogs, setBlogs] = useState<Blog[]>([]);
 
   useEffect(() => {
     axios.get("http://localhost:3000/blogs").then((res) => {
