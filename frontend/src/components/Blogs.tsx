@@ -1,11 +1,16 @@
 import axios from "axios";
+import { useState, useEffect } from "react";
 
 const Blogs = () => {
-  const promise = axios.get("http://localhost:3000/blogs");
+  const [blogs, setBlogs] = useState([]);
 
-  promise.then((res) => {
-    console.log(res);
-  });
+  useEffect(() => {
+    axios.get("http://localhost:3000/blogs").then((res) => {
+      setBlogs(res.data);
+    });
+  }, []);
+
+  console.log(blogs);
 
   return (
     <div>
