@@ -21,7 +21,7 @@ interface Blog {
   _id: string;
 }
 
-const Blogs = () => {
+const AllBlogs = () => {
   const [blogs, setBlogs] = useState<Blog[]>([]);
 
   useEffect(() => {
@@ -54,7 +54,7 @@ const Blogs = () => {
                   padding: "1rem",
                 }}
               >
-                <a href={blog.title}>{blog.title}</a>
+                <a href={blog._id}>{blog.title}</a>
                 <p>{blog.comments.length} comments</p>
                 <p>
                   created:{" "}
@@ -73,4 +73,4 @@ const Blogs = () => {
   );
 };
 
-export default Blogs;
+export default AllBlogs;

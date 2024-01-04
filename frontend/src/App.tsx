@@ -1,4 +1,5 @@
-import Blogs from "./components/Blogs";
+import AllBlogs from "./components/AllBlogs";
+import Blog from "./components/Blog";
 import Header from "./components/Header";
 import { Routes, Route } from "react-router-dom";
 
@@ -8,8 +9,9 @@ const App = () => {
       <Header />
       <main>
         <Routes>
-          <Route path="*" element={<h1>page not found</h1>}/>
-          <Route path="/" element={<Blogs />} />
+          <Route path="*" element={<h1>page not found</h1>} />
+          <Route path="/" element={<AllBlogs />} />
+          <Route path="/:blog" element={<Blog />} />
         </Routes>
       </main>
     </>
