@@ -1,28 +1,9 @@
 import axios from "axios";
 import { useState, useEffect } from "react";
-
-interface Blog {
-  body: string;
-  comments: [
-    {
-      author: string;
-      body: string;
-      _id: string;
-    }
-  ];
-  createdAt: string;
-  published: boolean;
-  title: string;
-  updatedAt: string;
-  user: {
-    _id: string;
-    username: string;
-  };
-  _id: string;
-}
+import { BlogType } from "../interfaces";
 
 const AllBlogs = () => {
-  const [blogs, setBlogs] = useState<Blog[]>([]);
+  const [blogs, setBlogs] = useState<BlogType[]>([]);
 
   useEffect(() => {
     axios.get("http://localhost:3000/blogs").then((res) => {
@@ -55,7 +36,7 @@ const AllBlogs = () => {
                 }}
               >
                 <a href={blog._id}>{blog.title}</a>
-                <p>{blog.comments.length} comments</p>
+                <p>{blog.comments?.length} comments</p>
                 <p>
                   created:{" "}
                   {new Date(blog.createdAt).toLocaleDateString(undefined, {

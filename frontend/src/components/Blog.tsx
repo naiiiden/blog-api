@@ -1,18 +1,39 @@
 import { useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import axios from "axios";
+import { BlogType } from "../interfaces";
 
 const Blog = () => {
   const { blogId } = useParams();
-  const [blog, setBlog] = useState<[]>([]);
+  const [blog, setBlog] = useState<BlogType>({
+    body: "",
+    comments: [
+      {
+        author: "",
+        body: "",
+        _id: "",
+      },
+    ],
+    createdAt: "",
+    published: false,
+    title: "",
+    updatedAt: "",
+    user: {
+      _id: "",
+      username: "",
+    },
+    _id: "",
+  });
 
   useEffect(() => {
     axios.get(`http://localhost:3000/blogs/${blogId}`).then((res) => {
       setBlog(res.data);
     });
-  }, []);
+  }, [blogId]);
 
   console.log(blog);
+
+  console.log("comments", blog.comments);
 
   return (
     <main>
@@ -26,7 +47,7 @@ const Blog = () => {
         })}
       </p>
       <p>{blog.body}</p>
-      <p>{blog.comments.length} comments</p>
+      <p>{blog.comments?.length} comments</p>
     </main>
   );
 };
