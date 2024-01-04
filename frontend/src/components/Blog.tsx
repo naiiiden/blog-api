@@ -47,7 +47,21 @@ const Blog = () => {
         })}
       </p>
       <p>{blog.body}</p>
+      <p>published by {blog.user.username}</p>
       <p>{blog.comments?.length} comments</p>
+      <h2>comments:</h2>
+      <ol>
+        {blog.comments.map((comment) => {
+            return (
+                <li>
+                    <div>
+                        <p>{comment.author}</p>
+                        <p>{comment.body}</p>
+                    </div>
+                </li>
+            )
+        })}
+      </ol>
     </main>
   );
 };
