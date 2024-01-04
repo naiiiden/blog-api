@@ -33,8 +33,6 @@ const Blog = () => {
 
   console.log(blog);
 
-  console.log("comments", blog.comments);
-
   return (
     <main>
       <h1>{blog.title}</h1>
@@ -46,22 +44,30 @@ const Blog = () => {
           year: "numeric",
         })}
       </p>
-      <p>{blog.body}</p>
       <p>published by {blog.user.username}</p>
-      <p>{blog.comments?.length} comments</p>
-      <h2>comments:</h2>
-      <ol>
-        {blog.comments.map((comment) => {
+      <p>{blog.body}</p>
+      <h2>comments ({blog.comments?.length}) </h2>
+      {Number(blog.comments?.length) === 0 ? (
+        <p>be the first to drop a comment</p>
+      ) : (
+        <ol>
+          {blog.comments.map((comment) => {
             return (
-                <li>
-                    <div>
-                        <p>{comment.author}</p>
-                        <p>{comment.body}</p>
-                    </div>
-                </li>
-            )
-        })}
-      </ol>
+              <li key={comment._id}>
+                <div>
+                  <p>{comment.author}</p>
+                  <p>{comment.body}</p>
+                </div>
+              </li>
+            );
+          })}
+        </ol>
+      )}
+      {/* todo */}
+      <form>
+        <textarea name="" id="" cols={50} rows={10}></textarea>
+        <input type="submit" value="submit" />
+      </form>
     </main>
   );
 };
