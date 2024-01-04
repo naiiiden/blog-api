@@ -3,20 +3,32 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 
 const Blog = () => {
-  const { blog } = useParams();
-  const [blogs, setBlogs] = useState<[]>([]);
+  const { blogId } = useParams();
+  const [blog, setBlog] = useState<[]>([]);
 
   useEffect(() => {
-    axios.get(`http://localhost:3000/blogs/${blog}`).then((res) => {
-      setBlogs(res.data);
+    axios.get(`http://localhost:3000/blogs/${blogId}`).then((res) => {
+      setBlog(res.data);
     });
   }, []);
 
-  console.log(blogs);
-
   console.log(blog);
 
-  return <div>Blog</div>;
+  return (
+    <main>
+      <h1>{blog.title}</h1>
+      <p>
+        created:{" "}
+        {new Date(blog.createdAt).toLocaleDateString(undefined, {
+          month: "short",
+          day: "numeric",
+          year: "numeric",
+        })}
+      </p>
+      <p>{blog.body}</p>
+      <p>{blog.comments.length} comments</p>
+    </main>
+  );
 };
 
 export default Blog;
