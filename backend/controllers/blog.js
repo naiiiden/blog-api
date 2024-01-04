@@ -47,10 +47,14 @@ blogRouter.post("/", async (req, res, next) => {
 
 // REWRITE THIS L8R
 blogRouter.get("/:blogId", async (req, res) => {
-  const blog = await Blog.findById(req.params.blogId).populate("comments", {
-    author: 1,
-    body: 1,
-  });
+  const blog = await Blog.findById(req.params.blogId)
+    .populate("comments", {
+      author: 1,
+      body: 1,
+    })
+    .populate("user", {
+      username: 1,
+    });
   return blog ? res.json(blog) : res.status(404).end();
 });
 
