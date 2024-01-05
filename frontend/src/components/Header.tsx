@@ -14,18 +14,7 @@ const Header = () => {
         <Link to="/">Nano's blog</Link>
       </h1>
 
-      <form
-        style={{
-          display: "flex",
-          flexWrap: "wrap",
-          gap: ".5rem",
-        }}
-      >
-        <label htmlFor="username">username</label>
-        <input type="text" name="username" id="username" />
-        <label htmlFor="password">password</label>
-        <input type="passowrd" name="password" id="password" />
-      </form>
+      <Link to="/login">login</Link>
     </header>
   );
 };
