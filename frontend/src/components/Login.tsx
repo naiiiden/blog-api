@@ -10,20 +10,19 @@ const Login = () => {
     e.preventDefault();
 
     try {
-      const res = await axios.post(`http://localhost:3000/login`, {
-        username,
-        password,
-      });
+      await axios
+        .post(`http://localhost:3000/login`, {
+          username,
+          password,
+        })
+        .then((res) => {
+          console.log("logging in with ", username, password);
+          console.log(1, res.data);
 
-      console.log("logging in with ", username, password);
-      console.log(res.data);
-
-      const user = res.data;
-      console.log(1, user);
-
-      setUser(user);
-      setUsername("");
-      setPassword("");
+          setUser(res.data);
+          setUsername("");
+          setPassword("");
+        });
     } catch (exception) {
       console.log(exception);
     }
