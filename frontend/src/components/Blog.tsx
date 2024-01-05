@@ -25,6 +25,11 @@ const Blog = () => {
     _id: "",
   });
 
+  const [newComment, setNewComment] = useState({
+    author: "",
+    body: "",
+  });
+
   useEffect(() => {
     axios.get(`http://localhost:3000/blogs/${blogId}`).then((res) => {
       setBlog(res.data);
@@ -35,10 +40,12 @@ const Blog = () => {
 
   const postComment = () => {
     axios.post(`http://localhost:3000/blogs/${blogId}/comments`, {
-      author: 'nano',
-      body: 'test',
-    })
-  }
+      author: newComment.author,
+      body: newComment.body,
+    });
+  };
+
+  console.log(1, newComment);
 
   return (
     <main>
@@ -87,6 +94,9 @@ const Blog = () => {
           name="author"
           id="author"
           placeholder="name or post anonymously"
+          onChange={(e) =>
+            setNewComment({ ...newComment, author: e.target.value })
+          }
         />
         <label htmlFor="body">message:</label>
         <textarea
@@ -95,8 +105,11 @@ const Blog = () => {
           cols={50}
           rows={10}
           placeholder="write your comment here"
+          onChange={(e) =>
+            setNewComment({ ...newComment, body: e.target.value })
+          }
         ></textarea>
-        <input type="submit" value="submit"/>
+        <input type="submit" value="submit" />
       </form>
     </main>
   );
