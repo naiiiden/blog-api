@@ -79,9 +79,9 @@ const Blog = () => {
         <p>be the first to drop a comment</p>
       ) : (
         <ol>
-          {blog.comments.map((comment) => {
+          {blog.comments.map((comment, index) => {
             return (
-              <li key={comment._id}>
+              <li key={comment._id || index}>
                 <div>
                   <p>{comment.author}</p>
                   <p>{comment.body}</p>
