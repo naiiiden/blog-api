@@ -64,8 +64,30 @@ const Blog = () => {
         </ol>
       )}
       {/* todo */}
-      <form>
-        <textarea name="" id="" cols={50} rows={10}></textarea>
+      <form
+        style={{
+          display: "flex",
+          flexDirection: "column",
+          alignItems: "flex-start",
+        }}
+        action={`http://localhost:3000/blogs/${blogId}/comments`}
+        method="POST"
+      >
+        <label htmlFor="name">name:</label>
+        <input
+          type="text"
+          name="author"
+          id="author"
+          placeholder="name or post anonymously"
+        />
+        <label htmlFor="body">message:</label>
+        <textarea
+          name="body"
+          id="body"
+          cols={50}
+          rows={10}
+          placeholder="write your comment here"
+        ></textarea>
         <input type="submit" value="submit" />
       </form>
     </main>
