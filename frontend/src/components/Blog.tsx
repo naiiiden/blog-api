@@ -62,7 +62,7 @@ const Blog = () => {
   console.log(1, newComment);
 
   return (
-    <main>
+    <div>
       <h1>{blog.title}</h1>
       <p>
         created:{" "}
@@ -124,7 +124,7 @@ const Blog = () => {
         ></textarea>
         <input type="submit" value="submit" />
       </form>
-    </main>
+    </div>
   );
 };
 
