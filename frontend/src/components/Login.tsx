@@ -1,13 +1,32 @@
 import { useState } from "react";
+import axios from "axios";
 
 const Login = () => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
+  const [user, setUser] = useState(null);
 
-  const handleLogin = (e: React.FormEvent<HTMLFormElement>) => {
+  const handleLogin = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
-    console.log("logging in with ", username, password);
+    try {
+      const res = await axios.post(`http://localhost:3000/login`, {
+        username,
+        password,
+      });
+
+      console.log("logging in with ", username, password);
+      console.log(res.data);
+
+      const user = res.data;
+      console.log(1, user);
+
+      setUser(user);
+      setUsername("");
+      setPassword("");
+    } catch (exception) {
+      console.log(exception);
+    }
   };
 
   return (
