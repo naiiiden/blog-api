@@ -45,7 +45,7 @@ const Blog = () => {
       author: newComment.author,
       body: newComment.body,
     });
-    
+
     // eslint-disable-next-line @typescript-eslint/ban-ts-comment
     // @ts-ignore
     setBlog((prevBlog) => ({
@@ -55,6 +55,8 @@ const Blog = () => {
         { author: newComment.author, body: newComment.body },
       ],
     }));
+
+    setNewComment({ author: "", body: "" });
   };
 
   console.log(1, newComment);
@@ -89,7 +91,6 @@ const Blog = () => {
           })}
         </ol>
       )}
-      {/* todo */}
       <form
         style={{
           display: "flex",
@@ -97,8 +98,6 @@ const Blog = () => {
           alignItems: "flex-start",
         }}
         onSubmit={postComment}
-        // action={`http://localhost:3000/blogs/${blogId}/comments`}
-        // method="POST"
       >
         <label htmlFor="name">name:</label>
         <input
@@ -106,6 +105,7 @@ const Blog = () => {
           name="author"
           id="author"
           placeholder="name or post anonymously"
+          value={newComment.author}
           onChange={(e) =>
             setNewComment({ ...newComment, author: e.target.value })
           }
@@ -117,6 +117,7 @@ const Blog = () => {
           cols={50}
           rows={10}
           placeholder="write your comment here"
+          value={newComment.body}
           onChange={(e) =>
             setNewComment({ ...newComment, body: e.target.value })
           }
