@@ -1,3 +1,5 @@
+import { Link } from "react-router-dom";
+
 const Header = () => {
   return (
     <header
@@ -8,7 +10,9 @@ const Header = () => {
         gap: "1rem",
       }}
     >
-      <h1>Nano's blog</h1>
+      <h1>
+        <Link to="/">Nano's blog</Link>
+      </h1>
 
       <form
         style={{
