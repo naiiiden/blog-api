@@ -38,11 +38,23 @@ const Blog = () => {
 
   console.log(blog);
 
-  const postComment = () => {
+  const postComment = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+
     axios.post(`http://localhost:3000/blogs/${blogId}/comments`, {
       author: newComment.author,
       body: newComment.body,
     });
+    
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    // @ts-ignore
+    setBlog((prevBlog) => ({
+      ...prevBlog,
+      comments: [
+        ...prevBlog.comments,
+        { author: newComment.author, body: newComment.body },
+      ],
+    }));
   };
 
   console.log(1, newComment);
