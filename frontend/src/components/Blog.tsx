@@ -33,6 +33,13 @@ const Blog = () => {
 
   console.log(blog);
 
+  const postComment = () => {
+    axios.post(`http://localhost:3000/blogs/${blogId}/comments`, {
+      author: 'nano',
+      body: 'test',
+    })
+  }
+
   return (
     <main>
       <h1>{blog.title}</h1>
@@ -70,8 +77,9 @@ const Blog = () => {
           flexDirection: "column",
           alignItems: "flex-start",
         }}
-        action={`http://localhost:3000/blogs/${blogId}/comments`}
-        method="POST"
+        onSubmit={postComment}
+        // action={`http://localhost:3000/blogs/${blogId}/comments`}
+        // method="POST"
       >
         <label htmlFor="name">name:</label>
         <input
@@ -88,7 +96,7 @@ const Blog = () => {
           rows={10}
           placeholder="write your comment here"
         ></textarea>
-        <input type="submit" value="submit" />
+        <input type="submit" value="submit"/>
       </form>
     </main>
   );
