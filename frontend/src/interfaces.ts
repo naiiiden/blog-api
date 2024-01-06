@@ -17,3 +17,8 @@ export interface BlogType {
     };
     _id: string;
 }
+
+export interface LoginResponse {
+  token: string,
+  username: string,
+}
