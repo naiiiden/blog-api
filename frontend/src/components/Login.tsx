@@ -1,11 +1,11 @@
 import { useState } from "react";
 import axios from "axios";
-import { LoginResponse } from "../interfaces";
+import { useUser } from "../UserContext";
 
 const Login = () => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
-  const [user, setUser] = useState<LoginResponse | null>(null);
+  const { user, setUser} = useUser();
 
   const handleLogin = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
