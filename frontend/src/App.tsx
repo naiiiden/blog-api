@@ -5,8 +5,22 @@ import Login from "./components/Login";
 import { Routes, Route } from "react-router-dom";
 import NewBlog from "./components/NewBlog";
 import AdminBlogs from "./components/AdminBlogs";
+import { useEffect } from "react";
+import { useUser } from "./UserContext";
 
 const App = () => {
+  const { user, setUser } = useUser();
+
+  useEffect(() => {
+    const loggedUser = window.localStorage.getItem("loggedBlogUser");
+    if (loggedUser) {
+      const user = JSON.parse(loggedUser);
+      setUser(user);
+    }
+  }, []);
+
+  console.log('user from app ', user);
+
   return (
     <>
       <Header />

@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import axios from "axios";
 import { useUser } from "../UserContext";
 
@@ -32,16 +32,6 @@ const Login = () => {
       console.log(exception);
     }
   };
-
-  useEffect(() => {
-    const loggedUser = window.localStorage.getItem("loggedBlogUser");
-    if (loggedUser) {
-      const user = JSON.parse(loggedUser);
-      setUser(user);
-    }
-  }, []);
-
-  console.log(user);
 
   return (
     <>
