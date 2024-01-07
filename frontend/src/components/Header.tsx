@@ -1,6 +1,9 @@
 import { Link } from "react-router-dom";
+import { useUser } from "../UserContext";
 
 const Header = () => {
+  const { user, setUser } = useUser();
+
   return (
     <header
       style={{
@@ -15,6 +18,8 @@ const Header = () => {
       </h1>
 
       <Link to="/login">login</Link>
+
+      <button onClick={() => (window.localStorage.removeItem('loggedBlogUser'), setUser(null))}>logout</button>
     </header>
   );
 };
