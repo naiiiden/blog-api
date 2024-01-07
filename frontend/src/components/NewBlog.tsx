@@ -1,7 +1,10 @@
 import { useState } from "react";
 import axios from "axios";
+import { useUser } from "../UserContext";
 
 const NewBlog = () => {
+  const { user, setUser } = useUser();
+
   const [newBlog, setNewBlog] = useState({
     title: "",
     body: "",
@@ -9,10 +12,10 @@ const NewBlog = () => {
     published: false,
   });
 
-  const postNewBlog = (e: React.FormEvent<HTMLFormElement>) => {
+  const postNewBlog = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
-    axios.post(`http://localhost:3000/blogs`, {});
+    await axios.post(`http://localhost:3000/blogs`, newBlog, { headers: { Authorization: `Bearer ${user?.token}`} });
   };
 
   console.log(newBlog);
