@@ -5,7 +5,7 @@ import { useUser } from "../UserContext";
 const Login = () => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
-  const { user, setUser} = useUser();
+  const { user, setUser } = useUser();
 
   const handleLogin = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -21,6 +21,10 @@ const Login = () => {
           console.log(1, res.data);
 
           setUser(res.data);
+          window.localStorage.setItem(
+            "loggedBlogUser",
+            JSON.stringify(res.data)
+          );
           setUsername("");
           setPassword("");
         });
