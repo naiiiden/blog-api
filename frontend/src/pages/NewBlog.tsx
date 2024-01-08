@@ -1,6 +1,7 @@
 import { useState } from "react";
 import axios from "axios";
 import { useUser } from "../UserContext";
+import BlogForm from "../components/BlogForm";
 
 const NewBlog = () => {
   const { user } = useUser();
@@ -26,7 +27,7 @@ const NewBlog = () => {
   return (
     <div>
       <h1>add new blog:</h1>
-      <form
+      {/* <form
         style={{
           display: "flex",
           flexDirection: "column",
@@ -71,7 +72,8 @@ const NewBlog = () => {
           />
         </fieldset>
         <input type="submit" value="submit" />
-      </form>
+      </form> */}
+      <BlogForm onSubmit={postNewBlog} blog={newBlog} setBlog={setNewBlog}/>
     </div>
   );
 };
