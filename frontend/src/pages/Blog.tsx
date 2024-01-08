@@ -2,6 +2,7 @@ import { useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import axios from "axios";
 import { BlogType } from "../interfaces";
+import Comment from "../components/Comment";
 
 const Blog = () => {
   const { blogId } = useParams();
@@ -83,14 +84,7 @@ const Blog = () => {
       ) : (
         <ol>
           {blog.comments.map((comment, index) => {
-            return (
-              <li key={comment._id || index}>
-                <div>
-                  <p>{comment.author}</p>
-                  <p>{comment.body}</p>
-                </div>
-              </li>
-            );
+            return <Comment comment={comment} key={comment._id || index} />;
           })}
         </ol>
       )}

@@ -22,3 +22,10 @@ export interface LoginResponse {
   token: string,
   username: string,
 }
+
+export interface CommentType {
+  comment: {
+    author: string;
+    body: string;
+  };
+}
