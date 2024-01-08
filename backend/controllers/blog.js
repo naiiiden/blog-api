@@ -59,22 +59,18 @@ blogRouter.get("/:blogId", async (req, res) => {
 });
 
 blogRouter.put("/:blogId", (req, res, next) => {
-  const { title, body, user, published } = req.body;
+  const { title, body, published } = req.body;
   // same as
   // const title = req.body;
   // const body = req.body;
-  // const user = req.body;
   // const published = req.body;
-  // const comments = req.body;
 
-  const blog = { title, body, user, published };
+  const blog = { title, body, published };
   // same as
   // const blog = {
   //     title: title,
   //     body: body,
-  //     user: user,
   //     published: published,
-  //     comments: comments
   // };
 
   Blog.findByIdAndUpdate(req.params.blogId, blog, { new: true })
