@@ -31,13 +31,24 @@ const Blog = () => {
     body: "",
   });
 
+  const [updateBlogModal, setUpdateBlogModal] = useState(true);
+
+  const [blogUpdate, setBlogUpdate] = useState({
+    title: blog.title,
+    body: blog.body,
+    published: blog.published,
+  });
+
   useEffect(() => {
     axios.get(`http://localhost:3000/blogs/${blogId}`).then((res) => {
       setBlog(res.data);
+      setBlogUpdate({
+        title: res.data.title,
+        body: res.data.body,
+        published: res.data.published,
+      });
     });
   }, [blogId]);
-
-  console.log(blog);
 
   const postComment = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -60,10 +71,17 @@ const Blog = () => {
     setNewComment({ author: "", body: "" });
   };
 
-  console.log(1, newComment);
+  console.log(5, blogUpdate);
 
-  const [updateBlog, setUpdateBlog] = useState(false);
-  console.log(updateBlog);
+  const updateBlog = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+
+    // axios.put(`http://localhost:3000/${blogId}`, newBlog, {
+    // headers: { Authorization: `Bearer ${user?.token}` },
+    // });
+
+    // setNewBlog({ title: "", body: "", published: false });
+  };
 
   return (
     <div>
@@ -122,22 +140,27 @@ const Blog = () => {
         <input type="submit" value="submit" />
       </form>
 
-      <button onClick={() => setUpdateBlog(!updateBlog)}>update blog</button>
-      {updateBlog && (
+      <button onClick={() => setUpdateBlogModal(!updateBlogModal)}>
+        update blog
+      </button>
+      {updateBlogModal && (
         <form
           style={{
             display: "flex",
             flexDirection: "column",
             alignItems: "start",
           }}
+          onSubmit={updateBlog}
         >
           <label htmlFor="title">title:</label>
           <input
             type="text"
             name="title"
             id="title"
-            value={blog.title}
-            // onChange={(e) => setNewBlog({ ...newBlog, title: e.target.value })}
+            value={blogUpdate.title}
+            onChange={(e) =>
+              setBlogUpdate({ ...blogUpdate, title: e.target.value })
+            }
           />
           <label htmlFor="body">body:</label>
           <textarea
@@ -145,8 +168,10 @@ const Blog = () => {
             id="body"
             cols={30}
             rows={10}
-            value={blog.body}
-            // onChange={(e) => setNewBlog({ ...newBlog, body: e.target.value })}
+            value={blogUpdate.body}
+            onChange={(e) =>
+              setBlogUpdate({ ...blogUpdate, body: e.target.value })
+            }
           ></textarea>
           <fieldset>
             <legend>published:</legend>
@@ -155,16 +180,18 @@ const Blog = () => {
               type="radio"
               name="published"
               id="yes"
-              // onChange={() => setNewBlog({ ...newBlog, published: true })}
-              checked={blog.published === true}
+              onChange={() => setBlogUpdate({ ...blogUpdate, published: true })}
+              checked={blogUpdate.published === true}
             />
             <label htmlFor="no">no:</label>
             <input
               type="radio"
               name="published"
               id="no"
-              // onChange={() => setNewBlog({ ...newBlog, published: false })}
-              checked={blog.published === false}
+              onChange={() =>
+                setBlogUpdate({ ...blogUpdate, published: false })
+              }
+              checked={blogUpdate.published === false}
             />
           </fieldset>
           <input type="submit" value="submit" />
