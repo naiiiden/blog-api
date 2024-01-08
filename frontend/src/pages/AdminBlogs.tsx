@@ -1,7 +1,7 @@
 import axios from "axios";
 import { useState, useEffect } from "react";
 import { BlogType } from "../interfaces";
-import { Link } from "react-router-dom";
+import BlogPreview from "../components/BlogPreview";
 
 const AdminBlogs = () => {
   const [blogs, setBlogs] = useState<BlogType[]>([]);
@@ -28,26 +28,7 @@ const AdminBlogs = () => {
         }}
       >
         {blogs.map((blog) => {
-          return (
-            <li
-              key={blog._id}
-              style={{
-                border: "1px solid red",
-                padding: "1rem",
-              }}
-            >
-              <Link to={`/${blog._id}`}>{blog.title}</Link>
-              <p>{blog.comments?.length} comments</p>
-              <p>
-                created:{" "}
-                {new Date(blog.createdAt).toLocaleDateString(undefined, {
-                  month: "short",
-                  day: "numeric",
-                  year: "numeric",
-                })}
-              </p>
-            </li>
-          );
+          return <BlogPreview blog={blog} key={blog._id} />;
         })}
       </ul>
     </div>
