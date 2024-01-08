@@ -3,8 +3,11 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 import { BlogType } from "../interfaces";
 import Comment from "../components/Comment";
+import { useUser } from "../UserContext";
 
 const Blog = () => {
+  const { user } = useUser();
+
   const { blogId } = useParams();
   const [blog, setBlog] = useState<BlogType>({
     body: "",
@@ -76,9 +79,9 @@ const Blog = () => {
   const updateBlog = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
-    // axios.put(`http://localhost:3000/${blogId}`, newBlog, {
-    // headers: { Authorization: `Bearer ${user?.token}` },
-    // });
+    axios.put(`http://localhost:3000/blogs/${blogId}`, blogUpdate, {
+      headers: { Authorization: `Bearer ${user?.token}` },
+    });
 
     // setNewBlog({ title: "", body: "", published: false });
   };
