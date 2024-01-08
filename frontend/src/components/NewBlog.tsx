@@ -12,10 +12,14 @@ const NewBlog = () => {
     published: false,
   });
 
-  const postNewBlog = async (e: React.FormEvent<HTMLFormElement>) => {
+  const postNewBlog = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
-    await axios.post(`http://localhost:3000/blogs`, newBlog, { headers: { Authorization: `Bearer ${user?.token}`} });
+    axios.post(`http://localhost:3000/blogs`, newBlog, {
+      headers: { Authorization: `Bearer ${user?.token}` },
+    });
+
+    setNewBlog({ title: "", body: "", published: false });
   };
 
   console.log(newBlog);
@@ -36,6 +40,7 @@ const NewBlog = () => {
           type="text"
           name="title"
           id="title"
+          value={newBlog.title}
           onChange={(e) => setNewBlog({ ...newBlog, title: e.target.value })}
         />
         <label htmlFor="body">body:</label>
@@ -44,6 +49,7 @@ const NewBlog = () => {
           id="body"
           cols={30}
           rows={10}
+          value={newBlog.body}
           onChange={(e) => setNewBlog({ ...newBlog, body: e.target.value })}
         ></textarea>
         {/* user */}
