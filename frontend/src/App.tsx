@@ -1,10 +1,10 @@
-import AllBlogs from "./components/AllBlogs";
-import Blog from "./components/Blog";
+import AllBlogs from "./pages/AllBlogs";
+import Blog from "./pages/Blog";
 import Header from "./components/Header";
-import Login from "./components/Login";
+import Login from "./pages/Login";
 import { Routes, Route } from "react-router-dom";
-import NewBlog from "./components/NewBlog";
-import AdminBlogs from "./components/AdminBlogs";
+import NewBlog from "./pages/NewBlog";
+import AdminBlogs from "./pages/AdminBlogs";
 import { useEffect } from "react";
 import { useUser } from "./UserContext";
 
