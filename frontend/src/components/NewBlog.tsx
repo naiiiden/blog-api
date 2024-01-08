@@ -3,12 +3,11 @@ import axios from "axios";
 import { useUser } from "../UserContext";
 
 const NewBlog = () => {
-  const { user, setUser } = useUser();
+  const { user } = useUser();
 
   const [newBlog, setNewBlog] = useState({
     title: "",
     body: "",
-    // author: "",
     published: false,
   });
 
@@ -52,7 +51,6 @@ const NewBlog = () => {
           value={newBlog.body}
           onChange={(e) => setNewBlog({ ...newBlog, body: e.target.value })}
         ></textarea>
-        {/* user */}
         <fieldset>
           <legend>published:</legend>
           <label htmlFor="yes">yes:</label>

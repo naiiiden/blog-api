@@ -17,7 +17,7 @@ const App = () => {
       const user = JSON.parse(loggedUser);
       setUser(user);
     }
-  }, []);
+  }, [setUser]);
 
   console.log('user from app ', user);
 
