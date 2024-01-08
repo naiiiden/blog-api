@@ -4,6 +4,7 @@ import axios from "axios";
 import { BlogType } from "../interfaces";
 import Comment from "../components/Comment";
 import { useUser } from "../UserContext";
+import BlogForm from "../components/BlogForm";
 
 const Blog = () => {
   const { user } = useUser();
@@ -147,58 +148,11 @@ const Blog = () => {
         update blog
       </button>
       {updateBlogModal && (
-        <form
-          style={{
-            display: "flex",
-            flexDirection: "column",
-            alignItems: "start",
-          }}
+        <BlogForm
           onSubmit={updateBlog}
-        >
-          <label htmlFor="title">title:</label>
-          <input
-            type="text"
-            name="title"
-            id="title"
-            value={blogUpdate.title}
-            onChange={(e) =>
-              setBlogUpdate({ ...blogUpdate, title: e.target.value })
-            }
-          />
-          <label htmlFor="body">body:</label>
-          <textarea
-            name="body"
-            id="body"
-            cols={30}
-            rows={10}
-            value={blogUpdate.body}
-            onChange={(e) =>
-              setBlogUpdate({ ...blogUpdate, body: e.target.value })
-            }
-          ></textarea>
-          <fieldset>
-            <legend>published:</legend>
-            <label htmlFor="yes">yes:</label>
-            <input
-              type="radio"
-              name="published"
-              id="yes"
-              onChange={() => setBlogUpdate({ ...blogUpdate, published: true })}
-              checked={blogUpdate.published === true}
-            />
-            <label htmlFor="no">no:</label>
-            <input
-              type="radio"
-              name="published"
-              id="no"
-              onChange={() =>
-                setBlogUpdate({ ...blogUpdate, published: false })
-              }
-              checked={blogUpdate.published === false}
-            />
-          </fieldset>
-          <input type="submit" value="submit" />
-        </form>
+          blog={blogUpdate}
+          setBlog={setBlogUpdate}
+        />
       )}
     </div>
   );
