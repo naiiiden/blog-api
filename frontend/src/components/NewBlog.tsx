@@ -61,6 +61,7 @@ const NewBlog = () => {
             name="published"
             id="yes"
             onChange={() => setNewBlog({ ...newBlog, published: true })}
+            checked={newBlog.published === true}
           />
           <label htmlFor="no">no:</label>
           <input
@@ -68,6 +69,7 @@ const NewBlog = () => {
             name="published"
             id="no"
             onChange={() => setNewBlog({ ...newBlog, published: false })}
+            checked={newBlog.published === false}
           />
         </fieldset>
         <input type="submit" value="submit" />
