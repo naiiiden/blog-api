@@ -1,4 +1,4 @@
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 import axios from "axios";
 import { BlogType } from "../interfaces";
@@ -8,6 +8,7 @@ import BlogForm from "../components/BlogForm";
 
 const Blog = () => {
   const { user } = useUser();
+  const navigate = useNavigate();
 
   const { blogId } = useParams();
   const [blog, setBlog] = useState<BlogType>({
@@ -75,8 +76,6 @@ const Blog = () => {
     setNewComment({ author: "", body: "" });
   };
 
-  console.log(5, blogUpdate);
-
   const updateBlog = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
@@ -92,10 +91,15 @@ const Blog = () => {
     });
   };
 
-  console.log(blog);
+  const deleteBlog = () => {
+    axios
+      .delete(`http://localhost:3000/blogs/${blogId}`)
+      .then(() => navigate("/"));
+  };
 
   return (
     <div>
+      <button onClick={deleteBlog}>delete blog</button>
       <h1>{blog.title}</h1>
       <p>
         created:{" "}
