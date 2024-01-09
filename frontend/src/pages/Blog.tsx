@@ -102,7 +102,16 @@ const Blog = () => {
   const deleteComment = (commentId: string) => {
     axios
       .delete(`http://localhost:3000/blogs/${blogId}/comments/${commentId}`)
-      .then((res) => console.log(res))
+      .then(() => {
+        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+        // @ts-ignore
+        setBlog((prevBlog) => ({
+          ...prevBlog,
+          comments: prevBlog.comments.filter(
+            (comment) => comment._id !== commentId
+          ),
+        }));
+      })
       .catch((err) => console.log(err));
   };
 
