@@ -91,6 +91,8 @@ const Blog = () => {
     });
   };
 
+  console.log(blog);
+
   const deleteBlog = () => {
     axios
       .delete(`http://localhost:3000/blogs/${blogId}`)

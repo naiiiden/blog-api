@@ -95,7 +95,7 @@ blogRouter.post("/:blogId/comments", async (req, res, next) => {
   res.json(savedComment);
 });
 
-blogRouter.delete("/:blogId/:commentId", async (req, res) => {
+blogRouter.delete("/:blogId/comments/:commentId", async (req, res) => {
   await Comment.findByIdAndDelete(req.params.commentId);
   res.status(204).end();
 });
