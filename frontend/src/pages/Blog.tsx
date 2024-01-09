@@ -84,8 +84,15 @@ const Blog = () => {
       headers: { Authorization: `Bearer ${user?.token}` },
     });
 
-    // setNewBlog({ title: "", body: "", published: false });
+    setBlog({
+      ...blog,
+      title: blogUpdate.title,
+      body: blogUpdate.body,
+      published: blogUpdate.published,
+    });
   };
+
+  console.log(blog);
 
   return (
     <div>
