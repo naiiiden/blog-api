@@ -28,4 +28,5 @@ export interface CommentType {
     author: string;
     body: string;
   };
+  onClick: () => void;
 }

@@ -99,6 +99,13 @@ const Blog = () => {
       .then(() => navigate("/"));
   };
 
+  const deleteComment = (commentId: string) => {
+    axios
+      .delete(`http://localhost:3000/blogs/${blogId}/comments/${commentId}`)
+      .then((res) => console.log(res))
+      .catch((err) => console.log(err));
+  };
+
   return (
     <div>
       <button onClick={deleteBlog}>delete blog</button>
@@ -119,7 +126,13 @@ const Blog = () => {
       ) : (
         <ol>
           {blog.comments.map((comment, index) => {
-            return <Comment comment={comment} key={comment._id || index} />;
+            return (
+              <Comment
+                comment={comment}
+                key={comment._id || index}
+                onClick={() => deleteComment(comment._id)}
+              />
+            );
           })}
         </ol>
       )}
