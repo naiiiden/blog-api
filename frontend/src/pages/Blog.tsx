@@ -95,13 +95,17 @@ const Blog = () => {
 
   const deleteBlog = () => {
     axios
-      .delete(`http://localhost:3000/blogs/${blogId}`)
+      .delete(`http://localhost:3000/blogs/${blogId}`, {
+        headers: { Authorization: `Bearer ${user?.token}` },
+      })
       .then(() => navigate("/"));
   };
 
   const deleteComment = (commentId: string) => {
     axios
-      .delete(`http://localhost:3000/blogs/${blogId}/comments/${commentId}`)
+      .delete(`http://localhost:3000/blogs/${blogId}/comments/${commentId}`, {
+        headers: { Authorization: `Bearer ${user?.token}` },
+      })
       .then(() => {
         // eslint-disable-next-line @typescript-eslint/ban-ts-comment
         // @ts-ignore
