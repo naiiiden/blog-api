@@ -17,12 +17,14 @@ db.on("error", console.error.bind(console, "mongo connection error"));
 const userRouter = require("./controllers/user");
 const blogRouter = require("./controllers/blog");
 const loginRouter = require("./controllers/login");
+const logoutRouter = require("./controllers/logout");
 
 app.use(middleware.requestLogger);
 
 app.use("/users", userRouter);
 app.use("/blogs", blogRouter);
 app.use("/login", loginRouter);
+app.use("/logout", logoutRouter);
 
 app.use(middleware.unknownEndpoint);
 app.use(middleware.errorHandler);
