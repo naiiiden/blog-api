@@ -4,6 +4,7 @@ const User = require("../models/user");
 const Comment = require("../models/comment");
 
 const config = require("../utils/config");
+const middleware = require("../utils/middleware");
 const jwt = require("jsonwebtoken");
 
 const getTokenFrom = (req) => {
@@ -58,7 +59,7 @@ blogRouter.get("/:blogId", async (req, res) => {
   return blog ? res.json(blog) : res.status(404).end();
 });
 
-blogRouter.put("/:blogId", (req, res, next) => {
+blogRouter.put("/:blogId", middleware.authenticateToken, (req, res, next) => {
   const { title, body, published } = req.body;
   // same as
   // const title = req.body;
