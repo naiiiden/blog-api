@@ -96,14 +96,22 @@ blogRouter.post("/:blogId/comments", async (req, res, next) => {
   res.json(savedComment);
 });
 
-blogRouter.delete("/:blogId/comments/:commentId", async (req, res) => {
-  await Comment.findByIdAndDelete(req.params.commentId);
-  res.status(204).end();
+blogRouter.delete("/:blogId/comments/:commentId", middleware.authenticateToken, async (req, res) => {
+  try {
+    await Comment.findByIdAndDelete(req.params.commentId);
+    res.status(204).end();
+  } catch (error) {
+    console.log(error);
+  }
 });
 
-blogRouter.delete("/:blogId", async (req, res) => {
-  await Blog.findByIdAndDelete(req.params.blogId);
-  res.status(204).end();
+blogRouter.delete("/:blogId", middleware.authenticateToken, async (req, res) => {
+  try {
+    await Blog.findByIdAndDelete(req.params.blogId);
+    res.status(204).end();
+  } catch (error) {
+    console.log(error);
+  }
 });
 
 module.exports = blogRouter;
