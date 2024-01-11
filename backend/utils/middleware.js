@@ -1,5 +1,6 @@
 const jwt = require("jsonwebtoken");
 const config = require("./config");
+const tokenBlacklist = require("./tokenBlacklist");
 
 const requestLogger = (req, res, next) => {
   console.log("Method:", req.method);
@@ -30,6 +31,10 @@ const authenticateToken = (req, res, next) => {
 
   if (!token) {
     return res.status(401).json({ error: "missing token" });
+  }
+
+  if (tokenBlacklist.has(token)) {
+    return res.status(401).json({ error: "token blacklisted" });
   }
 
   try {
