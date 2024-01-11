@@ -32,6 +32,12 @@ blogRouter.post("/", async (req, res, next) => {
 
     const user = await User.findById(decodedToken.id);
 
+    const existingBlog = await Blog.findOne({ title });
+
+    if (existingBlog) {
+      return res.status(400).json({ error: "duplicate blog" });
+    }
+
     const blog = new Blog({ title, body, user: user._id, published });
 
     const savedBlog = await blog.save();
