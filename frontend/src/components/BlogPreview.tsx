@@ -13,7 +13,7 @@ const BlogPreview = ({ blog }: BlogPreviewProps) => {
         padding: "1rem",
       }}
     >
-      <Link to={blog._id}>{blog.title}</Link>
+      <Link to={blog.title}>{blog.title}</Link>
       <p>{blog.comments?.length} comments</p>
       <p>
         created:{" "}

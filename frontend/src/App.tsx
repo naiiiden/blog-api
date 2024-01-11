@@ -28,7 +28,7 @@ const App = () => {
         <Routes>
           <Route path="*" element={<h1>page not found</h1>} />
           <Route path="/" element={<AllBlogs />} />
-          <Route path="/:blogId" element={<Blog />} />
+          <Route path="/:blogName" element={<Blog />} />
           <Route path="/login" element={<Login />} />
           <Route path="/new-blog" element={<NewBlog />} />
           <Route path="/all-blogs" element={<AdminBlogs />} />

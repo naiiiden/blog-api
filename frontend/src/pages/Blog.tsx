@@ -10,7 +10,7 @@ const Blog = () => {
   const { user } = useUser();
   const navigate = useNavigate();
 
-  const { blogId } = useParams();
+  const { blogName } = useParams();
   const [blog, setBlog] = useState<BlogType>({
     body: "",
     comments: [
@@ -45,7 +45,7 @@ const Blog = () => {
   });
 
   useEffect(() => {
-    axios.get(`http://localhost:3000/blogs/${blogId}`).then((res) => {
+    axios.get(`http://localhost:3000/blogs/${blogName}`).then((res) => {
       setBlog(res.data);
       setBlogUpdate({
         title: res.data.title,
@@ -53,12 +53,12 @@ const Blog = () => {
         published: res.data.published,
       });
     });
-  }, [blogId]);
+  }, [blogName]);
 
   const postComment = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
-    axios.post(`http://localhost:3000/blogs/${blogId}/comments`, {
+    axios.post(`http://localhost:3000/blogs/${blogName}/comments`, {
       author:
         newComment.author.trim() !== ""
           ? newComment.author
@@ -88,7 +88,7 @@ const Blog = () => {
   const updateBlog = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
-    axios.put(`http://localhost:3000/blogs/${blogId}`, blogUpdate, {
+    axios.put(`http://localhost:3000/blogs/${blogName}`, blogUpdate, {
       headers: { Authorization: `Bearer ${user?.token}` },
     });
 
@@ -104,7 +104,7 @@ const Blog = () => {
 
   const deleteBlog = () => {
     axios
-      .delete(`http://localhost:3000/blogs/${blogId}`, {
+      .delete(`http://localhost:3000/blogs/${blogName}`, {
         headers: { Authorization: `Bearer ${user?.token}` },
       })
       .then(() => navigate("/"));
@@ -112,7 +112,7 @@ const Blog = () => {
 
   const deleteComment = (commentId: string) => {
     axios
-      .delete(`http://localhost:3000/blogs/${blogId}/comments/${commentId}`, {
+      .delete(`http://localhost:3000/blogs/${blogName}/comments/${commentId}`, {
         headers: { Authorization: `Bearer ${user?.token}` },
       })
       .then(() => {

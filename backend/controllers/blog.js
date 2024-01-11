@@ -46,8 +46,9 @@ blogRouter.post("/", async (req, res, next) => {
 });
 
 // REWRITE THIS L8R
-blogRouter.get("/:blogId", async (req, res) => {
-  const blog = await Blog.findById(req.params.blogId)
+// prevent from adding blog with duplicate title
+blogRouter.get("/:blogName", async (req, res) => {
+  const blog = await Blog.findOne({ title: req.params.blogName })
     .populate("comments", {
       author: 1,
       body: 1,
