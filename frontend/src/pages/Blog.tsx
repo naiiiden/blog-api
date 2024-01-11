@@ -58,48 +58,54 @@ const Blog = () => {
   const postComment = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
-    axios.post(`http://localhost:3000/blogs/${blogName}/comments`, {
-      author:
-        newComment.author.trim() !== ""
-          ? newComment.author
-          : "Anonymous author",
-      body: newComment.body,
-    });
+    axios
+      .post(`http://localhost:3000/blogs/${blogName}/comments`, {
+        author:
+          newComment.author.trim() !== ""
+            ? newComment.author
+            : "Anonymous author",
+        body: newComment.body,
+      })
+      .then(() => {
+        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+        // @ts-ignore
+        setBlog((prevBlog) => ({
+          ...prevBlog,
+          comments: [
+            ...prevBlog.comments,
+            {
+              author:
+                newComment.author.trim() !== ""
+                  ? newComment.author
+                  : "Anonymous author",
+              body: newComment.body,
+            },
+          ],
+        }));
 
-    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-    // @ts-ignore
-    setBlog((prevBlog) => ({
-      ...prevBlog,
-      comments: [
-        ...prevBlog.comments,
-        {
-          author:
-            newComment.author.trim() !== ""
-              ? newComment.author
-              : "Anonymous author",
-          body: newComment.body,
-        },
-      ],
-    }));
-
-    setNewComment({ author: "", body: "" });
+        setNewComment({ author: "", body: "" });
+      })
+      .catch((err) => console.log(err));
   };
 
   const updateBlog = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
-    axios.put(`http://localhost:3000/blogs/${blogName}`, blogUpdate, {
-      headers: { Authorization: `Bearer ${user?.token}` },
-    });
+    axios
+      .put(`http://localhost:3000/blogs/${blogName}`, blogUpdate, {
+        headers: { Authorization: `Bearer ${user?.token}` },
+      })
+      .then(() => {
+        setBlog({
+          ...blog,
+          title: blogUpdate.title,
+          body: blogUpdate.body,
+          published: blogUpdate.published,
+        });
 
-    setBlog({
-      ...blog,
-      title: blogUpdate.title,
-      body: blogUpdate.body,
-      published: blogUpdate.published,
-    });
-
-    navigate(`/${blogUpdate.title}`)
+        navigate(`/${blogUpdate.title}`);
+      })
+      .catch((err) => console.log(err));
   };
 
   console.log(blog);
@@ -109,7 +115,8 @@ const Blog = () => {
       .delete(`http://localhost:3000/blogs/${blogName}`, {
         headers: { Authorization: `Bearer ${user?.token}` },
       })
-      .then(() => navigate("/"));
+      .then(() => navigate("/"))
+      .catch((err) => console.log(err));
   };
 
   const deleteComment = (commentId: string) => {
