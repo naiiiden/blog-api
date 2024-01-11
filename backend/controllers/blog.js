@@ -81,11 +81,11 @@ blogRouter.put("/:blogName", middleware.authenticateToken, (req, res, next) => {
     .catch((error) => next(error));
 });
 
-blogRouter.post("/:blogId/comments", async (req, res, next) => {
+blogRouter.post("/:blogName/comments", async (req, res, next) => {
   try {
     const { author, body } = req.body;
 
-    const blog = await Blog.findById(req.params.blogId);
+    const blog = await Blog.findOne({ title: req.params.blogName });
 
     const comment = new Comment({ author, body, blog: blog });
 
@@ -101,7 +101,7 @@ blogRouter.post("/:blogId/comments", async (req, res, next) => {
 });
 
 blogRouter.delete(
-  "/:blogId/comments/:commentId",
+  "/:blogName/comments/:commentId",
   middleware.authenticateToken,
   async (req, res) => {
     try {
@@ -114,11 +114,11 @@ blogRouter.delete(
 );
 
 blogRouter.delete(
-  "/:blogId",
+  "/:blogName",
   middleware.authenticateToken,
   async (req, res) => {
     try {
-      await Blog.findByIdAndDelete(req.params.blogId);
+      await Blog.findOneAndDelete({ title: req.params.blogName });
       res.status(204).end();
     } catch (error) {
       console.log(error);
