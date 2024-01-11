@@ -9,13 +9,17 @@ const jwt = require("jsonwebtoken");
 const tokenBlacklist = require("../utils/tokenBlacklist");
 
 blogRouter.get("/", async (req, res) => {
-  const blogs = await Blog.find({})
-    .populate("user", { username: 1 })
-    .populate("comments", {
-      author: 1,
-      body: 1,
-    });
-  res.json(blogs);
+  try {
+    const blogs = await Blog.find({})
+      .populate("user", { username: 1 })
+      .populate("comments", {
+        author: 1,
+        body: 1,
+      });
+    res.json(blogs);
+  } catch (error) {
+    console.log(error);
+  }
 });
 
 blogRouter.post("/", async (req, res, next) => {
@@ -51,43 +55,53 @@ blogRouter.post("/", async (req, res, next) => {
   }
 });
 
-// REWRITE THIS L8R
-// prevent from adding blog with duplicate title
 blogRouter.get("/:blogName", async (req, res) => {
-  const blog = await Blog.findOne({ title: req.params.blogName })
-    .populate("comments", {
-      author: 1,
-      body: 1,
-    })
-    .populate("user", {
-      username: 1,
-    });
-  return blog ? res.json(blog) : res.status(404).end();
+  try {
+    const blog = await Blog.findOne({ title: req.params.blogName })
+      .populate("comments", {
+        author: 1,
+        body: 1,
+      })
+      .populate("user", {
+        username: 1,
+      });
+    return res.json(blog);
+  } catch (error) {
+    console.log(error);
+    res.status(404).end();
+  }
 });
 
-blogRouter.put("/:blogName", middleware.authenticateToken, (req, res, next) => {
-  const { title, body, published } = req.body;
-  // same as
-  // const title = req.body;
-  // const body = req.body;
-  // const published = req.body;
+blogRouter.put("/:blogName", middleware.authenticateToken, async (req, res) => {
+  try {
+    const { title, body, published } = req.body;
+    // same as
+    // const title = req.body;
+    // const body = req.body;
+    // const published = req.body;
 
-  const blog = { title, body, published };
-  // same as
-  // const blog = {
-  //     title: title,
-  //     body: body,
-  //     published: published,
-  // };
+    const blog = { title, body, published };
+    // same as
+    // const blog = {
+    //     title: title,
+    //     body: body,
+    //     published: published,
+    // };
 
-  Blog.findOneAndUpdate({ title: req.params.blogName }, blog, { new: true })
-    .then((updatedBlog) => {
+    const updatedBlog = await Blog.findOneAndUpdate({ title: req.params.blogName }, blog, { new: true });
+
+    if (updatedBlog) {
       res.json(updatedBlog);
-    })
-    .catch((error) => next(error));
+    } else {
+      res.status(404).json({ error: "blog not found" });
+    }
+  } catch (error) {
+    console.log(error);
+  }
 });
 
-blogRouter.post("/:blogName/comments", async (req, res, next) => {
+
+blogRouter.post("/:blogName/comments", async (req, res) => {
   try {
     const { author, body } = req.body;
 
