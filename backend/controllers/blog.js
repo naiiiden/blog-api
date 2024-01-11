@@ -6,6 +6,7 @@ const Comment = require("../models/comment");
 const config = require("../utils/config");
 const middleware = require("../utils/middleware");
 const jwt = require("jsonwebtoken");
+const tokenBlacklist = require("../utils/tokenBlacklist");
 
 blogRouter.get("/", async (req, res) => {
   const blogs = await Blog.find({})
@@ -19,6 +20,10 @@ blogRouter.get("/", async (req, res) => {
 
 blogRouter.post("/", async (req, res, next) => {
   const token = req.header("Authorization");
+
+  if (tokenBlacklist.has(token.split(" ")[1])) {
+    return res.status(401).json({ error: "token blacklisted" });
+  }
 
   try {
     const { title, body, published } = req.body;
@@ -90,22 +95,30 @@ blogRouter.post("/:blogId/comments", async (req, res, next) => {
   res.json(savedComment);
 });
 
-blogRouter.delete("/:blogId/comments/:commentId", middleware.authenticateToken, async (req, res) => {
-  try {
-    await Comment.findByIdAndDelete(req.params.commentId);
-    res.status(204).end();
-  } catch (error) {
-    console.log(error);
+blogRouter.delete(
+  "/:blogId/comments/:commentId",
+  middleware.authenticateToken,
+  async (req, res) => {
+    try {
+      await Comment.findByIdAndDelete(req.params.commentId);
+      res.status(204).end();
+    } catch (error) {
+      console.log(error);
+    }
   }
-});
+);
 
-blogRouter.delete("/:blogId", middleware.authenticateToken, async (req, res) => {
-  try {
-    await Blog.findByIdAndDelete(req.params.blogId);
-    res.status(204).end();
-  } catch (error) {
-    console.log(error);
+blogRouter.delete(
+  "/:blogId",
+  middleware.authenticateToken,
+  async (req, res) => {
+    try {
+      await Blog.findByIdAndDelete(req.params.blogId);
+      res.status(204).end();
+    } catch (error) {
+      console.log(error);
+    }
   }
-});
+);
 
 module.exports = blogRouter;
