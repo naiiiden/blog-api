@@ -98,6 +98,8 @@ const Blog = () => {
       body: blogUpdate.body,
       published: blogUpdate.published,
     });
+
+    navigate(`/${blogUpdate.title}`)
   };
 
   console.log(blog);

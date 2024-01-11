@@ -59,7 +59,7 @@ blogRouter.get("/:blogName", async (req, res) => {
   return blog ? res.json(blog) : res.status(404).end();
 });
 
-blogRouter.put("/:blogId", middleware.authenticateToken, (req, res, next) => {
+blogRouter.put("/:blogName", middleware.authenticateToken, (req, res, next) => {
   const { title, body, published } = req.body;
   // same as
   // const title = req.body;
@@ -74,7 +74,7 @@ blogRouter.put("/:blogId", middleware.authenticateToken, (req, res, next) => {
   //     published: published,
   // };
 
-  Blog.findByIdAndUpdate(req.params.blogId, blog, { new: true })
+  Blog.findOneAndUpdate({ title: req.params.blogName }, blog, { new: true })
     .then((updatedBlog) => {
       res.json(updatedBlog);
     })
