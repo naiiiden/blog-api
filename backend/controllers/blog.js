@@ -81,18 +81,22 @@ blogRouter.put("/:blogId", middleware.authenticateToken, (req, res, next) => {
 });
 
 blogRouter.post("/:blogId/comments", async (req, res, next) => {
-  const { author, body } = req.body;
+  try {
+    const { author, body } = req.body;
 
-  const blog = await Blog.findById(req.params.blogId);
+    const blog = await Blog.findById(req.params.blogId);
 
-  const comment = new Comment({ author, body, blog: blog });
+    const comment = new Comment({ author, body, blog: blog });
 
-  const savedComment = await comment.save();
+    const savedComment = await comment.save();
 
-  blog.comments = blog.comments.concat(savedComment._id);
-  await blog.save();
+    blog.comments = blog.comments.concat(savedComment._id);
+    await blog.save();
 
-  res.json(savedComment);
+    res.json(savedComment);
+  } catch (error) {
+    console.log(error);
+  }
 });
 
 blogRouter.delete(

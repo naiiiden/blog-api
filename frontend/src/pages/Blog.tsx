@@ -59,7 +59,10 @@ const Blog = () => {
     e.preventDefault();
 
     axios.post(`http://localhost:3000/blogs/${blogId}/comments`, {
-      author: newComment.author,
+      author:
+        newComment.author.trim() !== ""
+          ? newComment.author
+          : "Anonymous author",
       body: newComment.body,
     });
 
@@ -69,7 +72,13 @@ const Blog = () => {
       ...prevBlog,
       comments: [
         ...prevBlog.comments,
-        { author: newComment.author, body: newComment.body },
+        {
+          author:
+            newComment.author.trim() !== ""
+              ? newComment.author
+              : "Anonymous author",
+          body: newComment.body,
+        },
       ],
     }));
 
