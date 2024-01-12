@@ -1,6 +1,12 @@
-import { CommentType } from "../interfaces";
+import { CommentType, BlogType } from "../interfaces";
+import DateDisplay from "./DateDisplay";
 
-const Comment = ({ comment, onClick }: CommentType) => {
+interface CommentProps extends CommentType {
+  blog: BlogType;
+  onClick: () => void;
+}
+
+const Comment = ({ comment, blog, onClick }: CommentProps) => {
   return (
     <li>
       <button onClick={onClick}>delete comment</button>
@@ -8,6 +14,7 @@ const Comment = ({ comment, onClick }: CommentType) => {
         <p>{comment.author}</p>
         <p>{comment.body}</p>
       </div>
+      <DateDisplay blog={blog} isComment={true} />
     </li>
   );
 };

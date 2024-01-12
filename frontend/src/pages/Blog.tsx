@@ -143,6 +143,7 @@ const Blog = () => {
       <button onClick={deleteBlog}>delete blog</button>
       <h1>{blog.title}</h1>
       <DateDisplay blog={blog} action="created" />
+      <DateDisplay blog={blog} isComment={true}/>
       {new Date(blog.createdAt).toDateString() !==
         new Date(blog.updatedAt).toDateString() && (
         <DateDisplay blog={blog} action="updated" />
@@ -157,6 +158,7 @@ const Blog = () => {
           {blog.comments.map((comment, index) => {
             return (
               <Comment
+                blog={blog}
                 comment={comment}
                 key={comment._id || index}
                 onClick={() => deleteComment(comment._id)}
