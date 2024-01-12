@@ -7,10 +7,10 @@ export interface BlogType {
         _id: string;
       }
     ];
-    createdAt: string;
+    createdAt: string | Date;
     published: boolean;
     title: string;
-    updatedAt: string;
+    updatedAt: string | Date;
     user: {
       _id: string;
       username: string;

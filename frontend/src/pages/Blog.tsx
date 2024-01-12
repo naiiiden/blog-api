@@ -5,6 +5,7 @@ import { BlogType } from "../interfaces";
 import Comment from "../components/Comment";
 import { useUser } from "../UserContext";
 import BlogForm from "../components/BlogForm";
+import DateDisplay from "../components/DateDisplay";
 
 const Blog = () => {
   const { user } = useUser();
@@ -141,24 +142,10 @@ const Blog = () => {
     <div>
       <button onClick={deleteBlog}>delete blog</button>
       <h1>{blog.title}</h1>
-      <p>
-        created:{" "}
-        {new Date(blog.createdAt).toLocaleDateString(undefined, {
-          month: "short",
-          day: "numeric",
-          year: "numeric",
-        })}
-      </p>
+      <DateDisplay blog={blog} action="created" />
       {new Date(blog.createdAt).toDateString() !==
         new Date(blog.updatedAt).toDateString() && (
-        <p>
-          updated:{" "}
-          {new Date(blog.updatedAt).toLocaleDateString(undefined, {
-            month: "short",
-            day: "numeric",
-            year: "numeric",
-          })}
-        </p>
+        <DateDisplay blog={blog} action="updated" />
       )}
       <p>published by {blog.user.username}</p>
       <p>{blog.body}</p>
