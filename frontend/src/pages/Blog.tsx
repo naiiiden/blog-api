@@ -149,6 +149,17 @@ const Blog = () => {
           year: "numeric",
         })}
       </p>
+      {new Date(blog.createdAt).toDateString() !==
+        new Date(blog.updatedAt).toDateString() && (
+        <p>
+          updated:{" "}
+          {new Date(blog.updatedAt).toLocaleDateString(undefined, {
+            month: "short",
+            day: "numeric",
+            year: "numeric",
+          })}
+        </p>
+      )}
       <p>published by {blog.user.username}</p>
       <p>{blog.body}</p>
       <h2>comments ({blog.comments?.length}) </h2>
