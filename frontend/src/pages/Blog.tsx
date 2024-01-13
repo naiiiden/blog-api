@@ -140,10 +140,10 @@ const Blog = () => {
 
   return (
     <div>
-      <button onClick={deleteBlog}>delete blog</button>
+      {user !== null && <button onClick={deleteBlog}>delete blog</button>}
       <h1>{blog.title}</h1>
       <DateDisplay blog={blog} action="created" />
-      <DateDisplay blog={blog} isComment={true}/>
+      <DateDisplay blog={blog} isComment={true} />
       {new Date(blog.createdAt).toDateString() !==
         new Date(blog.updatedAt).toDateString() && (
         <DateDisplay blog={blog} action="updated" />
@@ -200,16 +200,19 @@ const Blog = () => {
         ></textarea>
         <input type="submit" value="submit" />
       </form>
-
-      <button onClick={() => setUpdateBlogModal(!updateBlogModal)}>
-        update blog
-      </button>
-      {updateBlogModal && (
-        <BlogForm
-          onSubmit={updateBlog}
-          blog={blogUpdate}
-          setBlog={setBlogUpdate}
-        />
+      {user !== null && (
+        <>
+          <button onClick={() => setUpdateBlogModal(!updateBlogModal)}>
+            update blog
+          </button>
+          {updateBlogModal && (
+            <BlogForm
+              onSubmit={updateBlog}
+              blog={blogUpdate}
+              setBlog={setBlogUpdate}
+            />
+          )}
+        </>
       )}
     </div>
   );
