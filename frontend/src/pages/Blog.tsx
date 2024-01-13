@@ -175,21 +175,21 @@ const Blog = () => {
         }}
         onSubmit={postComment}
       >
-        <label htmlFor="name">name:</label>
+        <label htmlFor="comment-author">name:</label>
         <input
           type="text"
-          name="author"
-          id="author"
+          name="comment-author"
+          id="comment-author"
           placeholder="name or post anonymously"
           value={newComment.author}
           onChange={(e) =>
             setNewComment({ ...newComment, author: e.target.value })
           }
         />
-        <label htmlFor="body">message:</label>
+        <label htmlFor="comment-body">message:</label>
         <textarea
-          name="body"
-          id="body"
+          name="comment-body"
+          id="comment-body"
           cols={50}
           rows={10}
           placeholder="write your comment here"
