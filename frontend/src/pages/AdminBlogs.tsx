@@ -2,8 +2,19 @@ import axios from "axios";
 import { useState, useEffect } from "react";
 import { BlogType } from "../interfaces";
 import BlogPreview from "../components/BlogPreview";
+import { useUser } from "../UserContext";
+import { useNavigate } from "react-router-dom";
 
 const AdminBlogs = () => {
+  const { user } = useUser();
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    if (user === null) {
+      navigate("/")
+    }
+  }, [])
+
   const [blogs, setBlogs] = useState<BlogType[]>([]);
 
   useEffect(() => {

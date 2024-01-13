@@ -1,10 +1,18 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import axios from "axios";
 import { useUser } from "../UserContext";
 import BlogForm from "../components/BlogForm";
+import { useNavigate } from "react-router-dom";
 
 const NewBlog = () => {
   const { user } = useUser();
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    if (user === null) {
+      navigate("/")
+    }
+  }, [])
 
   const [newBlog, setNewBlog] = useState({
     title: "",
@@ -27,7 +35,7 @@ const NewBlog = () => {
   return (
     <div>
       <h1>add new blog:</h1>
-      <BlogForm onSubmit={postNewBlog} blog={newBlog} setBlog={setNewBlog}/>
+      <BlogForm onSubmit={postNewBlog} blog={newBlog} setBlog={setNewBlog} />
     </div>
   );
 };
