@@ -1,11 +1,13 @@
 import { useState } from "react";
 import axios from "axios";
 import { useUser } from "../UserContext";
+import { useNavigate } from "react-router-dom";
 
 const Login = () => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const { user, setUser } = useUser();
+  const navigate = useNavigate();
 
   const handleLogin = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -27,6 +29,7 @@ const Login = () => {
           );
           setUsername("");
           setPassword("");
+          navigate("/");
         });
     } catch (exception) {
       console.log(exception);

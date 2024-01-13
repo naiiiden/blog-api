@@ -1,8 +1,11 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useUser } from "../UserContext";
 
 const Header = () => {
   const { user, setUser } = useUser();
+  const navigate = useNavigate();
+
+  console.log(3, user);
 
   return (
     <header
@@ -17,9 +20,19 @@ const Header = () => {
         <Link to="/">Nano's blog</Link>
       </h1>
 
-      <Link to="/login">login</Link>
-
-      <button onClick={() => (window.localStorage.removeItem('loggedBlogUser'), setUser(null))}>logout</button>
+      {user === null ? (
+        <Link to="/login">login</Link>
+      ) : (
+        <button
+          onClick={() => (
+            window.localStorage.removeItem("loggedBlogUser"),
+            setUser(null),
+            navigate("/")
+          )}
+        >
+          logout
+        </button>
+      )}
     </header>
   );
 };
