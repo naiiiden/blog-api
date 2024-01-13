@@ -1,5 +1,6 @@
 import { CommentType, BlogType } from "../interfaces";
 import DateDisplay from "./DateDisplay";
+import { useUser } from "../UserContext";
 
 interface CommentProps extends CommentType {
   blog: BlogType;
@@ -7,9 +8,11 @@ interface CommentProps extends CommentType {
 }
 
 const Comment = ({ comment, blog, onClick }: CommentProps) => {
+  const { user } = useUser();
+
   return (
     <li>
-      <button onClick={onClick}>delete comment</button>
+      {user !== null && <button onClick={onClick}>delete comment</button>}
       <div>
         <p>{comment.author}</p>
         <p>{comment.body}</p>
