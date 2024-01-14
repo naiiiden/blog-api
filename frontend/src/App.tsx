@@ -8,6 +8,7 @@ import { useEffect } from "react";
 import { useUser } from "./UserContext";
 import Notification from "./components/Notification";
 import { useNotification } from "./NotificationContext";
+import "./index.css";
 
 const App = () => {
   const { user, setUser } = useUser();

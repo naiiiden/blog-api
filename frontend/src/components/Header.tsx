@@ -9,12 +9,7 @@ const Header = () => {
 
   return (
     <header
-      style={{
-        display: "flex",
-        alignItems: "center",
-        justifyContent: "space-between",
-        gap: "1rem",
-      }}
+      className="hidden"
     >
       <h1>
         <Link to="/">Nano's blog</Link>
