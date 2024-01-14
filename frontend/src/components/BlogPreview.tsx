@@ -3,16 +3,12 @@ import { BlogType } from "../interfaces";
 
 interface BlogPreviewProps {
   blog: BlogType;
+  className: string;
 }
 
-const BlogPreview = ({ blog }: BlogPreviewProps) => {
+const BlogPreview = ({ blog, className }: BlogPreviewProps) => {
   return (
-    <li
-      style={{
-        border: "1px solid red",
-        padding: "1rem",
-      }}
-    >
+    <li className={`${className}`}>
       {!blog.published && <p>unpublished</p>}
       <Link to={blog.title}>{blog.title}</Link>
       <p>{blog.comments?.length} comments</p>

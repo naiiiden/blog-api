@@ -24,17 +24,17 @@ const AllBlogs = () => {
   return (
     <>
       <div className="p-4 mx-auto max-w-7xl md:p-8">
-        <ul>
+        <ul className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
           {!user
             ? blogs.map((blog) => {
                 return (
                   blog.published === true && (
-                    <BlogPreview blog={blog} key={blog._id} />
+                    <BlogPreview className="" blog={blog} key={blog._id} />
                   )
                 );
               })
             : blogs.map((blog) => {
-                return <BlogPreview blog={blog} key={blog._id} />;
+                return <BlogPreview className="" blog={blog} key={blog._id} />;
               })}
         </ul>
       </div>
