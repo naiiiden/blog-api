@@ -1,5 +1,6 @@
 import { Link } from "react-router-dom";
 import { BlogType } from "../interfaces";
+import DateDisplay from "./DateDisplay";
 
 interface BlogPreviewProps {
   blog: BlogType;
@@ -9,17 +10,14 @@ interface BlogPreviewProps {
 const BlogPreview = ({ blog, className }: BlogPreviewProps) => {
   return (
     <li className={`${className}`}>
-      {!blog.published && <p>unpublished</p>}
-      <Link to={blog.title}>{blog.title}</Link>
-      <p>{blog.comments?.length} comments</p>
-      <p>
-        created:{" "}
-        {new Date(blog.createdAt).toLocaleDateString(undefined, {
-          month: "short",
-          day: "numeric",
-          year: "numeric",
-        })}
-      </p>
+      <article>
+        <Link to={blog.title}>
+          <h3>{blog.title}</h3>
+          {!blog.published && <p>unpublished</p>}
+          <p>{blog.comments?.length} comments</p>
+          <DateDisplay blog={blog} action="created" />
+        </Link>
+      </article>
     </li>
   );
 };
