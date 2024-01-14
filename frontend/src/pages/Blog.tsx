@@ -10,7 +10,7 @@ import { useNotification } from "../NotificationContext";
 
 const Blog = () => {
   const { user } = useUser();
-  const { notificationMessage, setNotificationMessage } = useNotification();
+  const { setNotificationMessage } = useNotification();
   const navigate = useNavigate();
 
   const { blogName } = useParams();
@@ -87,7 +87,10 @@ const Blog = () => {
         }));
 
         setNewComment({ author: "", body: "" });
-        setNotificationMessage("hi");
+        setNotificationMessage("comment added successfully");
+        setTimeout(() => {
+          setNotificationMessage(null);
+        }, 3000);
       })
       .catch((err) => console.log(err));
   };
