@@ -1,20 +1,12 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import axios from "axios";
 import { useUser } from "../UserContext";
 import BlogForm from "../components/BlogForm";
-import { useNavigate } from "react-router-dom";
 import { useNotificationHelper } from "../helpers";
 
 const NewBlog = () => {
   const { user } = useUser();
-  const navigate = useNavigate();
   const notifyAndReset = useNotificationHelper();
-
-  useEffect(() => {
-    if (user === null) {
-      navigate("/");
-    }
-  }, []);
 
   const [newBlog, setNewBlog] = useState({
     title: "",
