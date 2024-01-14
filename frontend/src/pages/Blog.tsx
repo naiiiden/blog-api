@@ -6,12 +6,12 @@ import Comment from "../components/Comment";
 import { useUser } from "../UserContext";
 import BlogForm from "../components/BlogForm";
 import DateDisplay from "../components/DateDisplay";
-import { useNotification } from "../NotificationContext";
+import { useNotificationHelper } from "../helpers";
 
 const Blog = () => {
   const { user } = useUser();
-  const { setNotificationMessage } = useNotification();
   const navigate = useNavigate();
+  const notifyAndReset = useNotificationHelper();
 
   const { blogName } = useParams();
   const [blog, setBlog] = useState<BlogType>({
@@ -33,14 +33,11 @@ const Blog = () => {
     },
     _id: "",
   });
-
   const [newComment, setNewComment] = useState({
     author: "",
     body: "",
   });
-
   const [updateBlogModal, setUpdateBlogModal] = useState(true);
-
   const [blogUpdate, setBlogUpdate] = useState({
     title: blog.title,
     body: blog.body,
@@ -87,10 +84,7 @@ const Blog = () => {
         }));
 
         setNewComment({ author: "", body: "" });
-        setNotificationMessage("comment added successfully");
-        setTimeout(() => {
-          setNotificationMessage(null);
-        }, 3000);
+        notifyAndReset("comment added successfully");
       })
       .catch((err) => console.log(err));
   };
