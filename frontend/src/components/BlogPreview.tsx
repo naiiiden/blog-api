@@ -13,6 +13,7 @@ const BlogPreview = ({ blog }: BlogPreviewProps) => {
         padding: "1rem",
       }}
     >
+      {!blog.published && <p>unpublished</p>}
       <Link to={blog.title}>{blog.title}</Link>
       <p>{blog.comments?.length} comments</p>
       <p>

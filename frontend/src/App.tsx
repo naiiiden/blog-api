@@ -4,7 +4,6 @@ import Header from "./components/Header";
 import Login from "./pages/Login";
 import { Routes, Route } from "react-router-dom";
 import NewBlog from "./pages/NewBlog";
-import AdminBlogs from "./pages/AdminBlogs";
 import { useEffect } from "react";
 import { useUser } from "./UserContext";
 import Notification from "./components/Notification";
@@ -35,7 +34,6 @@ const App = () => {
           <Route path="/:blogName" element={<Blog />} />
           <Route path="/login" element={<Login />} />
           <Route path="/new-blog" element={<NewBlog />} />
-          <Route path="/all-blogs" element={<AdminBlogs />} />
         </Routes>
       </main>
     </>

@@ -2,8 +2,10 @@ import axios from "axios";
 import { useState, useEffect } from "react";
 import { BlogType } from "../interfaces";
 import BlogPreview from "../components/BlogPreview";
+import { useUser } from "../UserContext";
 
 const AllBlogs = () => {
+  const { user } = useUser();
   const [blogs, setBlogs] = useState<BlogType[]>([]);
 
   useEffect(() => {
@@ -22,23 +24,39 @@ const AllBlogs = () => {
   return (
     <div>
       <p>All published blogs will be rendered here:</p>
-      <ul
-        style={{
-          padding: "0",
-          listStyle: "none",
-          display: "flex",
-          flexWrap: "wrap",
-          gap: "1rem",
-        }}
-      >
-        {blogs.map((blog) => {
-          return (
-            blog.published === true && (
-              <BlogPreview blog={blog} key={blog._id} />
-            )
-          );
-        })}
-      </ul>
+      {!user ? (
+        <ul
+          style={{
+            padding: "0",
+            listStyle: "none",
+            display: "flex",
+            flexWrap: "wrap",
+            gap: "1rem",
+          }}
+        >
+          {blogs.map((blog) => {
+            return (
+              blog.published === true && (
+                <BlogPreview blog={blog} key={blog._id} />
+              )
+            );
+          })}
+        </ul>
+      ) : (
+        <ul
+          style={{
+            padding: "0",
+            listStyle: "none",
+            display: "flex",
+            flexWrap: "wrap",
+            gap: "1rem",
+          }}
+        >
+          {blogs.map((blog) => {
+            return <BlogPreview blog={blog} key={blog._id} />;
+          })}
+        </ul>
+      )}
     </div>
   );
 };
