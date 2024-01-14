@@ -2,38 +2,38 @@ import { useState } from "react";
 import axios from "axios";
 import { useUser } from "../UserContext";
 import { useNavigate } from "react-router-dom";
+import { useNotificationHelper } from "../helpers";
 
 const Login = () => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const { user, setUser } = useUser();
   const navigate = useNavigate();
+  const notifyAndReset = useNotificationHelper();
 
   const handleLogin = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
-    try {
-      await axios
-        .post(`http://localhost:3000/login`, {
-          username,
-          password,
-        })
-        .then((res) => {
-          console.log("logging in with ", username, password);
-          console.log(1, res.data);
+    await axios
+      .post(`http://localhost:3000/login`, {
+        username,
+        password,
+      })
+      .then((res) => {
+        console.log("logging in with ", username, password);
+        console.log(1, res.data);
 
-          setUser(res.data);
-          window.localStorage.setItem(
-            "loggedBlogUser",
-            JSON.stringify(res.data)
-          );
-          setUsername("");
-          setPassword("");
-          navigate("/");
-        });
-    } catch (exception) {
-      console.log(exception);
-    }
+        setUser(res.data);
+        window.localStorage.setItem("loggedBlogUser", JSON.stringify(res.data));
+        setUsername("");
+        setPassword("");
+        navigate("/");
+        notifyAndReset("login successful");
+      })
+      .catch((err) => {
+        console.log(err);
+        notifyAndReset("login unsuccessful");
+      });
   };
 
   return (

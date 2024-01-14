@@ -86,7 +86,12 @@ const Blog = () => {
         setNewComment({ author: "", body: "" });
         notifyAndReset("comment added successfully");
       })
-      .catch((err) => console.log(err));
+      .catch(
+        (err) => (
+          console.log(err),
+          notifyAndReset("there was an issue submitting a comment")
+        )
+      );
   };
 
   const updateBlog = (e: React.FormEvent<HTMLFormElement>) => {
@@ -105,19 +110,31 @@ const Blog = () => {
         });
 
         navigate(`/${blogUpdate.title}`);
-      })
-      .catch((err) => console.log(err));
-  };
 
-  console.log(blog);
+        notifyAndReset("blog updated successfully");
+      })
+      .catch(
+        (err) => (
+          console.log(err),
+          notifyAndReset("there was an issue with updating the blog")
+        )
+      );
+  };
 
   const deleteBlog = () => {
     axios
       .delete(`http://localhost:3000/blogs/${blogName}`, {
         headers: { Authorization: `Bearer ${user?.token}` },
       })
-      .then(() => navigate("/"))
-      .catch((err) => console.log(err));
+      .then(() => {
+        navigate("/"), notifyAndReset("blog deleted successfully");
+      })
+      .catch(
+        (err) => (
+          console.log(err),
+          notifyAndReset("there was an issue with deleting the blog")
+        )
+      );
   };
 
   const deleteComment = (commentId: string) => {
@@ -134,8 +151,14 @@ const Blog = () => {
             (comment) => comment._id !== commentId
           ),
         }));
+        notifyAndReset("comment deleted successfully");
       })
-      .catch((err) => console.log(err));
+      .catch(
+        (err) => (
+          console.log(err),
+          notifyAndReset("there was an issue with deleting the comment")
+        )
+      );
   };
 
   return (
