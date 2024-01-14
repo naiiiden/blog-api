@@ -18,9 +18,14 @@ const AdminBlogs = () => {
   const [blogs, setBlogs] = useState<BlogType[]>([]);
 
   useEffect(() => {
-    axios.get("http://localhost:3000/blogs").then((res) => {
-      setBlogs(res.data);
-    });
+    axios
+      .get("http://localhost:3000/blogs")
+      .then((res) => {
+        setBlogs(res.data);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
   }, []);
 
   console.log(blogs);

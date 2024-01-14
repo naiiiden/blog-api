@@ -45,14 +45,19 @@ const Blog = () => {
   });
 
   useEffect(() => {
-    axios.get(`http://localhost:3000/blogs/${blogName}`).then((res) => {
-      setBlog(res.data);
-      setBlogUpdate({
-        title: res.data.title,
-        body: res.data.body,
-        published: res.data.published,
+    axios
+      .get(`http://localhost:3000/blogs/${blogName}`)
+      .then((res) => {
+        setBlog(res.data);
+        setBlogUpdate({
+          title: res.data.title,
+          body: res.data.body,
+          published: res.data.published,
+        });
+      })
+      .catch((err) => {
+        console.log(err);
       });
-    });
   }, [blogName]);
 
   const postComment = (e: React.FormEvent<HTMLFormElement>) => {
