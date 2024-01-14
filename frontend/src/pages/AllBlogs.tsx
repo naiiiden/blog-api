@@ -22,42 +22,23 @@ const AllBlogs = () => {
   console.log(blogs);
 
   return (
-    <div>
-      <p>All published blogs will be rendered here:</p>
-      {!user ? (
-        <ul
-          style={{
-            padding: "0",
-            listStyle: "none",
-            display: "flex",
-            flexWrap: "wrap",
-            gap: "1rem",
-          }}
-        >
-          {blogs.map((blog) => {
-            return (
-              blog.published === true && (
-                <BlogPreview blog={blog} key={blog._id} />
-              )
-            );
-          })}
+    <>
+      <div className="p-4 mx-auto max-w-7xl md:p-8">
+        <ul>
+          {!user
+            ? blogs.map((blog) => {
+                return (
+                  blog.published === true && (
+                    <BlogPreview blog={blog} key={blog._id} />
+                  )
+                );
+              })
+            : blogs.map((blog) => {
+                return <BlogPreview blog={blog} key={blog._id} />;
+              })}
         </ul>
-      ) : (
-        <ul
-          style={{
-            padding: "0",
-            listStyle: "none",
-            display: "flex",
-            flexWrap: "wrap",
-            gap: "1rem",
-          }}
-        >
-          {blogs.map((blog) => {
-            return <BlogPreview blog={blog} key={blog._id} />;
-          })}
-        </ul>
-      )}
-    </div>
+      </div>
+    </>
   );
 };
 
