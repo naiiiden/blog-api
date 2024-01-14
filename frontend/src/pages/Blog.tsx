@@ -6,9 +6,11 @@ import Comment from "../components/Comment";
 import { useUser } from "../UserContext";
 import BlogForm from "../components/BlogForm";
 import DateDisplay from "../components/DateDisplay";
+import { useNotification } from "../NotificationContext";
 
 const Blog = () => {
   const { user } = useUser();
+  const { notificationMessage, setNotificationMessage } = useNotification();
   const navigate = useNavigate();
 
   const { blogName } = useParams();
@@ -85,6 +87,7 @@ const Blog = () => {
         }));
 
         setNewComment({ author: "", body: "" });
+        setNotificationMessage("hi");
       })
       .catch((err) => console.log(err));
   };

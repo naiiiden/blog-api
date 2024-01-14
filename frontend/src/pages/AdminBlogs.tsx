@@ -11,9 +11,9 @@ const AdminBlogs = () => {
 
   useEffect(() => {
     if (user === null) {
-      navigate("/")
+      navigate("/");
     }
-  }, [])
+  }, []);
 
   const [blogs, setBlogs] = useState<BlogType[]>([]);
 

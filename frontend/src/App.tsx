@@ -7,9 +7,12 @@ import NewBlog from "./pages/NewBlog";
 import AdminBlogs from "./pages/AdminBlogs";
 import { useEffect } from "react";
 import { useUser } from "./UserContext";
+import Notification from "./components/Notification";
+import { useNotification } from "./NotificationContext";
 
 const App = () => {
   const { user, setUser } = useUser();
+  const { notificationMessage } = useNotification();
 
   useEffect(() => {
     const loggedUser = window.localStorage.getItem("loggedBlogUser");
@@ -19,10 +22,11 @@ const App = () => {
     }
   }, [setUser]);
 
-  console.log('user from app ', user);
+  console.log("user from app ", user);
 
   return (
     <>
+      <Notification notificationMessage={notificationMessage} />
       <Header />
       <main>
         <Routes>
