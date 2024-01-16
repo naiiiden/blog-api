@@ -6,10 +6,11 @@ interface DateDisplayProps {
   action?: string;
   isComment?: boolean;
   className?: string;
+  showAction?: boolean;
 }
 
 // update formatting later
-const DateDisplay = ({ blog, action, isComment, className }: DateDisplayProps) => {
+const DateDisplay = ({ blog, action, isComment, className, showAction = false }: DateDisplayProps) => {
   return (
     <>
       {isComment ? (
@@ -22,7 +23,7 @@ const DateDisplay = ({ blog, action, isComment, className }: DateDisplayProps) =
         </p>
       ) : (
         <p className={`${className}`}>
-          {action === "created" ? "created" : "updated"}:{" "}
+          {showAction && <span>{action === "created" ? "created" : "updated"}: </span>}
           {new Date(
             action === "created" ? blog.createdAt : blog.updatedAt
           ).toLocaleDateString(undefined, {
