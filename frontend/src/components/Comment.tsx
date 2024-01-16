@@ -11,13 +11,23 @@ const Comment = ({ comment, blog, onClick }: CommentProps) => {
   const { user } = useUser();
 
   return (
-    <li>
-      {user !== null && <button onClick={onClick}>delete comment</button>}
-      <div>
-        <p>{comment.author}</p>
-        <p>{comment.body}</p>
+    <li className="md:text-lg">
+      <div className="flex flex-wrap items-center">
+        <p>
+          <span className="font-medium">{comment.author}</span> wrote -&nbsp;
+        </p>{" "}
+        <DateDisplay
+          blog={blog}
+          isComment={true}
+          className="text-base italic"
+        />
+        {user !== null && (
+          <button onClick={onClick} className="ml-auto text-base">
+            delete
+          </button>
+        )}
       </div>
-      <DateDisplay blog={blog} isComment={true} />
+      <p className="py-2">{comment.body}</p>
     </li>
   );
 };

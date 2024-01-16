@@ -167,21 +167,24 @@ const Blog = () => {
   };
 
   return (
-    <div>
-      {user !== null && <button onClick={deleteBlog}>delete blog</button>}
-      <h1>{blog.title}</h1>
-      <DateDisplay blog={blog} action="published" showAction={true}/>
-      {new Date(blog.createdAt).toDateString() !==
-        new Date(blog.updatedAt).toDateString() && (
-        <DateDisplay blog={blog} action="updated" showAction={true}/>
-      )}
-      <p>published by {blog.user.username}</p>
-      <p>{blog.body}</p>
-      <h2>comments ({blog.comments?.length}) </h2>
+    <div className="p-4 mx-auto max-w-7xl md:p-8">
+      <h1 className="text-2xl md:text-4xl">{blog.title}</h1>
+      <p className="py-2 md:py-4 italic text-right">
+        published by {blog.user.username}
+      </p>
+      <p className="text-lg">{blog.body}</p>
+      <div className="py-2 md:py-4 italic text-right">
+        <DateDisplay blog={blog} action="published" showAction={true} />
+        {new Date(blog.createdAt).toDateString() !==
+          new Date(blog.updatedAt).toDateString() && (
+          <DateDisplay blog={blog} action="updated" showAction={true} />
+        )}
+      </div>
+      <p className="text-xl md:text-2xl">comments ({blog.comments?.length}): </p>
       {Number(blog.comments?.length) === 0 ? (
         <p>be the first to drop a comment</p>
       ) : (
-        <ol>
+        <ol className="py-2 md:py-4">
           {blog.comments.map((comment, index) => {
             return (
               <Comment
@@ -217,7 +220,7 @@ const Blog = () => {
         <textarea
           name="comment-body"
           id="comment-body"
-          cols={50}
+          cols={10}
           rows={10}
           placeholder="write your comment here"
           value={newComment.body}
@@ -229,6 +232,7 @@ const Blog = () => {
       </form>
       {user !== null && (
         <>
+          <button onClick={deleteBlog}>delete blog</button>
           <button onClick={() => setUpdateBlogModal(!updateBlogModal)}>
             update blog
           </button>
