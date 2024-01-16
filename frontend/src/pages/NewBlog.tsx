@@ -34,8 +34,8 @@ const NewBlog = () => {
   console.log(newBlog);
 
   return (
-    <div>
-      <h1>add new blog:</h1>
+    <div className="p-4 mx-auto max-w-7xl md:p-8">
+      <h1 className="text-2xl md:text-4xl">Add a new blog:</h1>
       <BlogForm onSubmit={postNewBlog} blog={newBlog} setBlog={setNewBlog} />
     </div>
   );
