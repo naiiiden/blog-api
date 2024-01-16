@@ -226,26 +226,35 @@ const Blog = () => {
             Message:
           </label>
           <textarea
-            className="border rounded p-2"
+            className="min-h-48 border rounded p-2"
             name="comment-body"
             id="comment-body"
-            cols={10}
-            rows={10}
             placeholder="Write your comment here"
             value={newComment.body}
             onChange={(e) =>
               setNewComment({ ...newComment, body: e.target.value })
             }
           ></textarea>
-          <input className="border my-2 md:my-4 py-2" type="submit" value="Submit comment" />
+          <input
+            className="rounded border my-2 md:my-4 py-2"
+            type="submit"
+            value="Submit comment"
+          />
         </fieldset>
       </form>
       {user !== null && (
-        <>
-          <button onClick={deleteBlog}>delete blog</button>
-          <button onClick={() => setUpdateBlogModal(!updateBlogModal)}>
-            update blog
-          </button>
+        <div className="py-4 md:py-8">
+          <div className="flex gap-4">
+            <button className="border rounded p-2" onClick={deleteBlog}>
+              Delete blog
+            </button>
+            <button
+              className="border rounded p-2"
+              onClick={() => setUpdateBlogModal(!updateBlogModal)}
+            >
+              Update blog
+            </button>
+          </div>
           {updateBlogModal && (
             <BlogForm
               onSubmit={updateBlog}
@@ -253,7 +262,7 @@ const Blog = () => {
               setBlog={setBlogUpdate}
             />
           )}
-        </>
+        </div>
       )}
     </div>
   );

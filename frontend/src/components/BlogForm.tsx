@@ -1,34 +1,33 @@
 // add types l8r
 const BlogForm = ({ onSubmit, blog, setBlog }) => {
   return (
-    <form
-      style={{
-        display: "flex",
-        flexDirection: "column",
-        alignItems: "start",
-      }}
-      onSubmit={onSubmit}
-    >
-      <label htmlFor="title">title:</label>
+    <form className="flex flex-col" onSubmit={onSubmit}>
+      <label className="pt-2 md:pt-4 pb-1 md:text-lg" htmlFor="title">
+        Title:
+      </label>
       <input
+        className="border rounded p-2"
         type="text"
         name="title"
         id="title"
         value={blog.title}
         onChange={(e) => setBlog({ ...blog, title: e.target.value })}
       />
-      <label htmlFor="body">body:</label>
+      <label className="pt-2 md:pt-4 pb-1 md:text-lg" htmlFor="body">
+        Body:
+      </label>
       <textarea
+        className="min-h-48 border rounded p-2"
         name="body"
         id="body"
-        cols={30}
-        rows={10}
         value={blog.body}
         onChange={(e) => setBlog({ ...blog, body: e.target.value })}
       ></textarea>
-      <fieldset>
-        <legend>published:</legend>
-        <label htmlFor="yes">yes:</label>
+      <fieldset className="flex items-center gap-2">
+        <legend className="pt-2 md:pt-4 pb-1 md:text-lg">Published:</legend>
+        <label className="md:text-lg" htmlFor="yes">
+          Yes:
+        </label>
         <input
           type="radio"
           name="published"
@@ -36,7 +35,9 @@ const BlogForm = ({ onSubmit, blog, setBlog }) => {
           onChange={() => setBlog({ ...blog, published: true })}
           checked={blog.published === true}
         />
-        <label htmlFor="no">no:</label>
+        <label className="md:text-lg" htmlFor="no">
+          No:
+        </label>
         <input
           type="radio"
           name="published"
@@ -45,7 +46,11 @@ const BlogForm = ({ onSubmit, blog, setBlog }) => {
           checked={blog.published === false}
         />
       </fieldset>
-      <input type="submit" value="submit" />
+      <input
+        className="rounded border my-2 md:my-4 py-2"
+        type="submit"
+        value="Update blog"
+      />
     </form>
   );
 };
