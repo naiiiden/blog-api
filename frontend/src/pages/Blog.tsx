@@ -180,9 +180,11 @@ const Blog = () => {
           <DateDisplay blog={blog} action="updated" showAction={true} />
         )}
       </div>
-      <p className="text-xl md:text-2xl">comments ({blog.comments?.length}): </p>
+      <p className="text-xl md:text-2xl">
+        Comments ({blog.comments?.length}):{" "}
+      </p>
       {Number(blog.comments?.length) === 0 ? (
-        <p>be the first to drop a comment</p>
+        <p>Be the first to drop a comment</p>
       ) : (
         <ol className="py-2 md:py-4">
           {blog.comments.map((comment, index) => {
@@ -197,38 +199,46 @@ const Blog = () => {
           })}
         </ol>
       )}
-      <form
-        style={{
-          display: "flex",
-          flexDirection: "column",
-          alignItems: "flex-start",
-        }}
-        onSubmit={postComment}
-      >
-        <label htmlFor="comment-author">name:</label>
-        <input
-          type="text"
-          name="comment-author"
-          id="comment-author"
-          placeholder="name or post anonymously"
-          value={newComment.author}
-          onChange={(e) =>
-            setNewComment({ ...newComment, author: e.target.value })
-          }
-        />
-        <label htmlFor="comment-body">message:</label>
-        <textarea
-          name="comment-body"
-          id="comment-body"
-          cols={10}
-          rows={10}
-          placeholder="write your comment here"
-          value={newComment.body}
-          onChange={(e) =>
-            setNewComment({ ...newComment, body: e.target.value })
-          }
-        ></textarea>
-        <input type="submit" value="submit" />
+      <form onSubmit={postComment}>
+        <fieldset className="flex flex-col">
+          <legend className="text-xl md:text-2xl">Leave a comment:</legend>
+          <label
+            className="pt-2 md:pt-4 pb-1 md:text-lg"
+            htmlFor="comment-author"
+          >
+            Name:
+          </label>
+          <input
+            className="border rounded p-2"
+            type="text"
+            name="comment-author"
+            id="comment-author"
+            placeholder="Write your name or post anonymously"
+            value={newComment.author}
+            onChange={(e) =>
+              setNewComment({ ...newComment, author: e.target.value })
+            }
+          />
+          <label
+            className="pt-2 md:pt-4 pb-1 md:text-lg"
+            htmlFor="comment-body"
+          >
+            Message:
+          </label>
+          <textarea
+            className="border rounded p-2"
+            name="comment-body"
+            id="comment-body"
+            cols={10}
+            rows={10}
+            placeholder="Write your comment here"
+            value={newComment.body}
+            onChange={(e) =>
+              setNewComment({ ...newComment, body: e.target.value })
+            }
+          ></textarea>
+          <input className="border my-2 md:my-4 py-2" type="submit" value="Submit comment" />
+        </fieldset>
       </form>
       {user !== null && (
         <>
