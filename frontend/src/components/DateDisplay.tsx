@@ -3,7 +3,7 @@ interface DateDisplayProps {
     createdAt: Date | string;
     updatedAt: Date | string;
   };
-  action?: string;
+  action?: 'published' | 'updated';
   isComment?: boolean;
   className?: string;
   showAction?: boolean;
@@ -23,9 +23,9 @@ const DateDisplay = ({ blog, action, isComment, className, showAction = false }:
         </p>
       ) : (
         <p className={`${className}`}>
-          {showAction && <span>{action === "created" ? "created" : "updated"}: </span>}
+          {showAction && <span>{action === "published" ? "published" : "updated"}: </span>}
           {new Date(
-            action === "created" ? blog.createdAt : blog.updatedAt
+            action === "published" ? blog.createdAt : blog.updatedAt
           ).toLocaleDateString(undefined, {
             month: "short",
             day: "numeric",

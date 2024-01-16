@@ -170,7 +170,7 @@ const Blog = () => {
     <div>
       {user !== null && <button onClick={deleteBlog}>delete blog</button>}
       <h1>{blog.title}</h1>
-      <DateDisplay blog={blog} action="created" showAction={true}/>
+      <DateDisplay blog={blog} action="published" showAction={true}/>
       {new Date(blog.createdAt).toDateString() !==
         new Date(blog.updatedAt).toDateString() && (
         <DateDisplay blog={blog} action="updated" showAction={true}/>
