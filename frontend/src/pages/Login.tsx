@@ -56,7 +56,7 @@ const Login = () => {
           </label>
           <input
             className="border rounded p-2"
-            type="passowrd"
+            type="password"
             name="password"
             id="password"
             value={password}
