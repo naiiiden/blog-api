@@ -172,7 +172,7 @@ const Blog = () => {
       <p className="py-2 md:py-4 italic text-right">
         published by {blog.user.username}
       </p>
-      <p className="text-lg">{blog.body}</p>
+      <p className="text-lg whitespace-pre-line">{blog.body}</p>
       <div className="py-2 md:py-4 italic text-right">
         <DateDisplay blog={blog} action="published" showAction={true} />
         {new Date(blog.createdAt).toDateString() !==
