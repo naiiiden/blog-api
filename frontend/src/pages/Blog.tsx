@@ -37,7 +37,7 @@ const Blog = () => {
     author: "",
     body: "",
   });
-  const [updateBlogModal, setUpdateBlogModal] = useState(true);
+  const [updateBlogModal, setUpdateBlogModal] = useState(false);
   const [blogUpdate, setBlogUpdate] = useState({
     title: blog.title,
     body: blog.body,
@@ -245,7 +245,7 @@ const Blog = () => {
       {user !== null && (
         <div className="py-4 md:py-8">
           <div className="flex gap-4">
-            <button className="border rounded p-2" onClick={deleteBlog}>
+            <button className="bg-red-600 text-white border rounded p-2 opacity-80 hover:opacity-100 active:opacity-100 focus-visible:opacity-100" onClick={deleteBlog}>
               Delete blog
             </button>
             <button

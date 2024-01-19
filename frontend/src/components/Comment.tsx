@@ -22,8 +22,8 @@ const Comment = ({ comment, blog, onClick }: CommentProps) => {
           className="text-base italic"
         />
         {user !== null && (
-          <button onClick={onClick} className="ml-auto text-base">
-            delete
+          <button onClick={onClick} className="bg-red-600 text-white border rounded p-1 ml-auto text-sm opacity-80 hover:opacity-100 active:opacity-100 focus-visible:opacity-100">
+            Delete
           </button>
         )}
       </div>
