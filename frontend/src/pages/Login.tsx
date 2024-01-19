@@ -39,31 +39,34 @@ const Login = () => {
   return (
     <>
       {user === null ? (
-        <form
-          style={{
-            display: "flex",
-            flexWrap: "wrap",
-            gap: ".5rem",
-          }}
-          onSubmit={handleLogin}
-        >
-          <label htmlFor="username">username</label>
+        <form className="flex flex-col p-4 mx-auto max-w-96 md:p-8" onSubmit={handleLogin}>
+          <label className="pt-2 md:pt-4 pb-1 md:text-lg" htmlFor="username">
+            Username
+          </label>
           <input
+            className="border rounded p-2"
             type="text"
             name="username"
             id="username"
             value={username}
             onChange={(e) => setUsername(e.target.value)}
           />
-          <label htmlFor="password">password</label>
+          <label className="pt-2 md:pt-4 pb-1 md:text-lg" htmlFor="password">
+            Password
+          </label>
           <input
+            className="border rounded p-2"
             type="passowrd"
             name="password"
             id="password"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
           />
-          <input type="submit" value="login" />
+          <input
+            className="rounded border my-2 md:my-4 py-2"
+            type="submit"
+            value="Login"
+          />
         </form>
       ) : (
         <p>logged in as {user.username}</p>
