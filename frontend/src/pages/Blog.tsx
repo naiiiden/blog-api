@@ -183,11 +183,11 @@ const Blog = () => {
       <p className="text-xl md:text-2xl">
         Comments ({blog.comments?.length}):{" "}
       </p>
-      <div className="lg:flex border border-red-500 lg:gap-8 relative">
+      <div className="lg:flex lg:border lg:border-red-500 lg:gap-8">
         {Number(blog.comments?.length) === 0 ? (
           <p>Be the first to drop a comment</p>
         ) : (
-          <ol className="py-2 md:py-4 w-2/3">
+          <ol className="py-2 md:py-4 lg:w-2/3">
             {blog.comments.map((comment, index) => {
               return (
                 <Comment
@@ -200,8 +200,8 @@ const Blog = () => {
             })}
           </ol>
         )}
-        <div className="relative border w-full py-2 md:py-4">
-          <form className="fixed" onSubmit={postComment}>
+        <div className="relative lg:border lg:w-full py-2 md:py-4">
+          <form className="lg:fixed lg:w-96" onSubmit={postComment}>
             <fieldset className="flex flex-col">
               <legend className="text-xl md:text-2xl">Leave a comment:</legend>
               <label
