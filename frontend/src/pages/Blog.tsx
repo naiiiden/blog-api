@@ -185,7 +185,7 @@ const Blog = () => {
       </p>
       <div className="lg:flex lg:gap-8">
         {Number(blog.comments?.length) === 0 ? (
-          <p>Be the first to drop a comment</p>
+          <p className="py-2 md:py-4 lg:w-full lg:flex-grow text-center my-auto lg:text-xl">Be the first to drop a comment</p>
         ) : (
           <ol className="py-2 md:py-4 lg:w-full lg:flex-grow">
             {blog.comments.map((comment, index) => {
