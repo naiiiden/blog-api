@@ -26,7 +26,7 @@ const App = () => {
   console.log("user from app ", user);
 
   return (
-    <>
+    <div className="min-h-screen flex flex-col">
       <Notification notificationMessage={notificationMessage} />
       <Header />
       <main>
@@ -39,7 +39,7 @@ const App = () => {
         </Routes>
       </main>
       <Footer />
-    </>
+    </div>
   );
 };
 
