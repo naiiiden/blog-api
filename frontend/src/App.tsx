@@ -9,6 +9,7 @@ import { useUser } from "./UserContext";
 import Notification from "./components/Notification";
 import { useNotification } from "./NotificationContext";
 import "./index.css";
+import Footer from "./components/Footer";
 
 const App = () => {
   const { user, setUser } = useUser();
@@ -37,6 +38,7 @@ const App = () => {
           <Route path="/new-blog" element={<NewBlog />} />
         </Routes>
       </main>
+      <Footer />
     </>
   );
 };

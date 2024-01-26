@@ -8,7 +8,7 @@ const Header = () => {
   console.log(3, user);
 
   return (
-    <header className="bg-blue-700">
+    <header className="bg-blue-700 h-fit">
       <div className="p-4 mx-auto flex justify-between items-center text-white max-w-7xl md:p-8">
         <h1 className="text-xl md:text-2xl">
           <Link to="/">Nano's blog</Link>
