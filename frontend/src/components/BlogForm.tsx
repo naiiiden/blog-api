@@ -1,5 +1,5 @@
 // add types l8r
-const BlogForm = ({ onSubmit, blog, setBlog }) => {
+const BlogForm = ({ onSubmit, blog, setBlog, action }) => {
   return (
     <form className="flex flex-col" onSubmit={onSubmit}>
       <label className="pt-2 md:pt-4 pb-1 md:text-lg" htmlFor="title">
@@ -49,7 +49,7 @@ const BlogForm = ({ onSubmit, blog, setBlog }) => {
       <input
         className="rounded border my-2 md:my-4 py-2"
         type="submit"
-        value="Update blog"
+        value={action === "update" ? "Update blog" : "Publish blog"}
       />
     </form>
   );
